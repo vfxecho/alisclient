@@ -1,0 +1,47 @@
+{
+    "success": true,
+    "gameservers": {
+        "na-server": {
+            "FFA": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444"
+            },
+            "Instant": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444",
+                "4": "ws:\/\/localhost:444",
+                "5": "ws:\/\/localhost:444"
+            },
+            "Crazy": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444",
+                "4": "ws:\/\/localhost:444",
+                "5": "ws:\/\/localhost:444"
+            },
+             "Bots": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444"
+            }
+         
+        },
+        "eu-server": {
+            "FFA": {
+                "1": "ws:\/\/localhost:3001"
+            },
+            "Instant": {
+                "1": "ws:\/\/localhost:4001"
+            },
+            "Crazy": {
+                "1": "ws:\/\/localhost:5001"
+            },
+            "Self-Feed": {
+                "1": "ws:\/\/localhost:8001"
+            }
+            
+        }
+    }
+}

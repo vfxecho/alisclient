@@ -1,0 +1,3712 @@
+console.log("Loaded client version 1480401833");
+function MyApp() {
+  function _0x1B2E5() {
+    var _0x1A8CD = myApp.getTeamName();
+    return $("#team_name").val(_0x1A8CD), tmpTeamname == _0x1A8CD ? false : (setLocalStorage("opt_teamname", _0x1A8CD), player_profile[selected_profile].team = _0x1A8CD, _0x1A47F(), true);
+  }
+  function _0x1B2F8() {
+    setLocalStorage("selected_profile", selected_profile);
+    tmpTeamname = myApp.getTeamName();
+    $("#nick").val(player_profile[selected_profile].name).trigger("change");
+    ;
+    ;
+    ;
+    ;
+    $("#team_name").val(player_profile[selected_profile].team).trigger("change");
+    ;
+    ;
+    ;
+    ;
+    $("#skinurl").val(player_profile[selected_profile].skinurl).trigger("change");
+    if (_0x1B2E5()) {
+      nodeList[0][1] = myApp.getName();
+      setLocalStorage("nick", myApp.getName());
+    } else {
+      $("#nick").val(myApp.getName()), nodeList[0][1] == myApp.getName() ? false : (nodeList[0][1] = myApp.getName(), setLocalStorage("nick", $("#nick").val()), player_profile[selected_profile].name = myApp.getName(), _0x1A47F(), true);
+    }
+  }
+  function _0x1A47F() {
+    setLocalStorage("player_profile", player_profile);
+  }
+  this.version = "v2.0.0";
+  var _0x1A8CD = 0.97;
+  this.getZoomSpeed = function () {
+    return _0x1A8CD;
+  };
+  this.getZoomLimit = function () {
+    return 0.05;
+  };
+  this.warlisCustomization = true;
+  this.virusCusts = {virus_default_color: "#aaaaaa", virus_opacity: 0.8, virus_default_outline_color: "#ffffff", virus_outline_width: 10};
+  this.minimapCusts = {colorminimapothers_default: "#4caf50", colorminimapself_default: "#fff500", minimapbackgroundcolor: "000000"};
+  $.getJSON("leaderboardcolors.json", function (_0x1B30B) {
+    ll = _0x1B30B.tagcolors;
+  });
+  this.isEnableHideFood = this.isEnableGridline = this.isEnableBorder = this.isEnableMapGrid = this.isEnableCursorLine = this.isBoldMass = this.isEnableZoom = this.isStopMovement = this.isShowBallTotal = this.isShowSTE = this.isShowScroll = false;
+  this.isEnableShowAllMass = true;
+  this.isEnableSimpleDrawing = true;
+  this.isEnableAutoStart = true;
+  this.isEnableMouseW = false;
+  this.isEnableLockZoom = this.isEnableCustomSkin = true;
+  this.isEnableAttackRange = false;
+  this.isEnableTeammateIndicator = true;
+  this.isEnableChatpopup = true;
+  this.attackRangeRadius = 655;
+  this.cellColor = "";
+  this.cellColorAry = "red #76FF03 blue yellow #8207ff #2196F3 ".split(" ");
+  this.doubleSpace = this.quickSpace = this.autoW = false;
+  this.doubleSpaceCount = this.quickSpaceCount = 0;
+  this.lockZoomG;
+  this.teammateIndicatorPosition = 40;
+  this.teammateIndicatorSize = 50;
+  this.teammateIndicatorShowSize = 200;
+  this.teammateIndicator;
+  this.specTeammate;
+  this.isSpecTeammate = false;
+  this.massTextSize = 0.8;
+  this.isSpectating = false;
+  this.isSameColorFood = true;
+  this.isEnableSplitInd = this.isShowTextStrokeLine = this.isAutoHideName = this.isAutoHideMass = this.isShowFPS = this.isTransparentCell = false;
+  this.isEnableOtherSkinSupport = true;
+  this.isShowPacketIO = this.isEnableShareFb = this.isEnableSound = this.isHideSelfName = this.testing = false;
+  this.init = function () {
+    var _0x1ADB3 = "/gameservers.json";
+    var _0x1B31E = function (_0x1AC4A) {
+      var _0x1B344 = "";
+      $.each(_0x1AC4A.gameservers, function (_0x1B357, _0x1B36A) {
+        var _0x1B37D = '<div class="tab-pane" id=' + _0x1B357 + '><ul id="dropdown-menu1" class="dropdown-menu">';
+        $.each(_0x1B36A, function (_0x1B2AC, _0x1B390) {
+          $.each(_0x1B390, function (_0x1AB53, _0x1B3A3) {
+            var _0x1B3B6 = "";
+            _0x1B3B6 += '<li id="' + _0x1B2AC + '" class="gameinstance">';
+            _0x1B3B6 += "<a onclick=\"connector('" + _0x1B3A3 + "');return false;\">";
+            _0x1B3B6 += _0x1B2AC + '<span class="label label-success">' + _0x1AB53 + "</span></a>";
+            _0x1B3B6 += "</li>";
+            _0x1B37D += _0x1B3B6;
+          });
+        });
+        _0x1B37D += "</ul></div>";
+        _0x1B344 += _0x1B37D;
+      });
+      $("#serverspanel .tab-content").append(_0x1B344);
+      if (localStorage.getItem("continent") === null) {
+        jQuery(document).ready(function (_0x1B3C9) {
+          jQuery.getScript("http://www.geoplugin.net/javascript.gp", function () {
+            var _0x1B331 = geoplugin_continentCode();
+            console.log(_0x1B331);
+            localStorage.setItem("continent", _0x1B331);
+          });
+        });
+      } else {
+        console.log(_0x1B331);
+        var _0x1B331 = localStorage.getItem("continent");
+      }
+      ;
+      if (_0x1B331 == "NA") {
+        $("#naserverslink a").click();
+        $("#na-server li #FFA:first-of-type a").click();
+      } else {
+        $("#euserverslink a").click();
+        $("#eu-server li:first-of-type a").click();
+      }
+    };
+    $("#dropdown-menu1").sortable();
+    $.ajax({dataType: "json", url: _0x1ADB3, success: _0x1B31E});
+    $("#overlays").show();
+    $("body").append("<canvas id='canvas'>");
+    $("body").append("<div id = 'overlays2'></div>");
+    $("#overlays2").append("<div id = 'div_lb'><h3 id='lb_title'>AgarTuto</h3></div>");
+    $("#div_lb").append("<div id='lb_detail'></div>");
+    $("#overlays2").append("<div id = 'div_score'></div>");
+    var _0x1A291 = document.getElementById("canvas");
+    _0x1A291.getContext("2d");
+    _0x1A291.mozOpaque = true;
+    window.setLocalStorage = function (_0x1ADA0, _0x1A362) {
+      if ("string" == typeof _0x1A362) {
+        localStorage.setItem(_0x1ADA0, _0x1A362);
+      } else {
+        localStorage.setItem(_0x1ADA0, JSON.stringify(_0x1A362));
+      }
+    };
+    window.getLocalStorage = function (_0x1B3DC) {
+      return localStorage.getItem(_0x1B3DC);
+    };
+    if (getLocalStorage("selected_profile")) {
+      selected_profile = getLocalStorage("selected_profile");
+    }
+    ;
+    if (getLocalStorage("player_profile")) {
+      player_profile = JSON.parse(getLocalStorage("player_profile"));
+    } else {
+      if (getLocalStorage("nick")) {
+        player_profile[selected_profile].name = getLocalStorage("nick");
+      }
+      ;
+      if (getLocalStorage("opt_teamname")) {
+        player_profile[selected_profile].team = getLocalStorage("opt_teamname");
+      }
+      ;
+      if (getLocalStorage("skinurl")) {
+        player_profile[selected_profile].skinurl = getLocalStorage("skinurl");
+      }
+    }
+    ;
+    _0x1A291 = 0;
+    for (; _0x1A291 < player_profile.length; _0x1A291++) {
+      window.postMessage({action: Action.IMAGE, data: player_profile[_0x1A291].skinurl}, "*");
+    }
+    ;
+    $("body").attr("oncontextmenu", "return false;");
+    $("#overlays2").append("<div id='teammate_menu'></div>");
+    $("#teammate_menu").hide();
+    $("#teammate_menu").click(function (_0x1AD67) {
+      _0x1AD67.stopPropagation();
+    });
+    $("#overlays2").click(function () {
+      $("#teammate_menu").hide();
+    });
+    nodeList[0] = ["me", getLocalStorage("nick"), null, null, "yellow"];
+    nodeList[1] = ["top1", "", null, null, "white"];
+    nodeList[0][8] = Date.now();
+    nodeList[1][8] = Date.now();
+    chatRoom = new ChatRoom;
+    chatRoom.setContainer("#overlays2");
+    chatRoom.createChatBox();
+    $("#btn_connect").click(function () {
+      $("#btn_connect").text("Connecting");
+      $("#connect_error_div").hide();
+    });
+    minimap = new Minimap;
+    minimap.createMap(200);
+    _0x1A291 = document.createElement("canvas");
+    var _0x1A388 = _0x1A291.getContext("2d");
+    _0x1A388.beginPath();
+    _0x1A388.lineWidth = 10;
+    _0x1A388.moveTo(0, 0);
+    _0x1A388.lineTo(100, 0);
+    _0x1A388.lineTo(50, 50);
+    _0x1A388.closePath();
+    _0x1A388.strokeStyle = "white";
+    _0x1A388.fillStyle = "white";
+    _0x1A388.stroke();
+    _0x1A388.fill();
+    this.teammateIndicator = _0x1A291;
+    conn = new Connection;
+    conn.connect();
+  };
+  this.newGame = function () {
+    $("#nick").prop("disabled", false);
+    $(".btn-spectate").prop("disabled", true);
+    lII = true;
+    myApp.isStopMovement = false;
+    myApp.isSpectating = false;
+    myApp.cellColor = "";
+    myApp.newGameImpl();
+    l1ll = false;
+    nodeList[1][2] = null;
+    nodeList[1][3] = null;
+  };
+  this.afterGameLogicLoaded = function () {
+    myApp.setupOption();
+    myApp.setupHotKey();
+    myApp.restoreSetting();
+    myApp.setUpHotKeyConfigPage();
+    myApp.replaceTos();
+    myApp.setupHints();
+    myApp.checkVersion();
+    myApp.downloadSkin();
+    $("#btn_info").click(function () {
+      myApp.showAnnouncement();
+    });
+    $("#game_info").click(function () {
+      myApp.copyGameInfo();
+    });
+    $("#nick").change(function () {
+      $("#nick").val(myApp.getName()), nodeList[0][1] == myApp.getName() ? false : (nodeList[0][1] = myApp.getName(), setLocalStorage("nick", $("#nick").val()), player_profile[selected_profile].name = myApp.getName(), _0x1A47F(), true);
+    });
+    $("#team_name").change(function () {
+      _0x1B2E5();
+    }).focus(function () {
+      tmpTeamname = myApp.getTeamName();
+    });
+    $("#skinurl").change(function () {
+      var _0x1B3EF = getLocalStorage("skinurl");
+      var _0x1A8CD = myApp.getCustomSkinUrl();
+      $("#skinurl").val(_0x1A8CD);
+      if (_0x1B3EF != _0x1A8CD) {
+        _0x1B3EF = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+        if ("DEFAULT" == _0x1A8CD || _0x1B3EF.test(_0x1A8CD)) {
+          setLocalStorage("skinurl", _0x1A8CD);
+          nodeList[0][5] = _0x1A8CD;
+          player_profile[selected_profile].skinurl = myApp.getCustomSkinUrl();
+          _0x1A47F();
+          if (customSkin[_0x1A8CD]) {
+            myApp.changePreviewImage(customSkin[_0x1A8CD].src);
+          } else {
+            skinDownloadQueue.push(_0x1A8CD);
+          }
+        } else {
+          console.log("Not valid URL");
+          $("#skinurl").val("");
+        }
+      }
+    });
+    $(".nav2.arrow-left").click(function () {
+      selected_profile = (player_profile.length + selected_profile - 1) % player_profile.length;
+      _0x1B2F8();
+    });
+    $(".nav2.arrow-right").click(function () {
+      selected_profile = (selected_profile + 1) % player_profile.length;
+      _0x1B2F8();
+    });
+    _0x1A47F();
+  };
+  this.spectate = function (_0x1B402) {
+    conn.joinRoom(myApp.getRoom());
+    if (!(_0x1B402 && 0 != _0x1B402.length)) {
+      myApp.isSpectating = true;
+    }
+  };
+  this.newGameImpl = function () {
+    var _0x1AD54 = true;
+    var _0x1B415 = getCell();
+    if (!(_0x1B415 && 0 != _0x1B415.length)) {
+      _0x1AD54 = false;
+    }
+    ;
+    if (_0x1AD54) {
+      nodeList[0][6] = _0x1B415[0].color;
+      conn.joinRoom(myApp.getRoom());
+    } else {
+      setTimeout(myApp.newGameImpl, 100);
+    }
+  };
+  this.onDead = function () {
+    lII = false;
+    $(".btn-spectate").prop("disabled", false);
+    $("#nick").prop("disabled", false);
+    $(".nav").show();
+    conn.leaveRoom(myApp.getRoom());
+  };
+  this.afterGameLoaded = function () {
+    myApp.isSpectating = false;
+    l1l1 = -1;
+    $("#nick").prop("disabled", false);
+    $("#current_ip").text("Server: " + myApp.getCurrentIP());
+    $("#ip_info").text("Server: " + myApp.getCurrentIP());
+    $("#region_info").text("Region: " + $("#region option:selected").text().split(" ")[0]);
+    $("#gamemode_info").text("Mode: " + $("#gamemode option:selected").text());
+    $("#party_code_info").text("Party: " + myApp.getCurrentPartyCode());
+    $("#btn_connect").text("Connect");
+    moveTo(null, null);
+    myApp.specTeammate = null;
+    myApp.isStopMovement = false;
+    minimap.setDeadPosition(null);
+    conn.joinRoom(myApp.getRoom());
+  };
+  this.getRoom = function () {
+    return "N/A" == myApp.getCurrentPartyCode() ? myApp.getTeamName() + myApp.getCurrentIP() : myApp.getTeamName() + myApp.getCurrentPartyCode();
+  };
+  this.restoreSetting = function () {
+    if (getLocalStorage("opt_teamname")) {
+      $("#team_name").val(getLocalStorage("opt_teamname"));
+    }
+    ;
+    if (getLocalStorage("nick") && "" != getLocalStorage("nick").trim()) {
+      $("#nick").val(getLocalStorage("nick", myApp.getName()));
+    } else {
+      $("#nick").val(myApp.getName());
+      setLocalStorage("nick", myApp.getName());
+    }
+    ;
+    nodeList[0][1] = myApp.getName();
+    if (getLocalStorage("opt_zoom_speed")) {
+      _0x1A8CD = getLocalStorage("opt_zoom_speed");
+      $("#opt_zoom_speed").val(_0x1A8CD);
+      $("#txt_zoom_speed").text(_0x1A8CD);
+    }
+    ;
+    var _0x1A39B = getLocalStorage("skinurl");
+    if (_0x1A39B && "" != _0x1A39B || (setLocalStorage("skinurl", defaultSkin), _0x1A39B = defaultSkin), _0x1A39B && ("" != _0x1A39B && ($("#skinurl").val(getLocalStorage("skinurl")), nodeList[0][5] = _0x1A39B, customSkin[_0x1A39B] ? myApp.changePreviewImage(customSkin[_0x1A39B].src) : skinDownloadQueue.push(getLocalStorage("skinurl")))), getLocalStorage("hotkeyMapping")) {
+      hotkeyMapping = JSON.parse(getLocalStorage("hotkeyMapping"));
+    } else {
+      var _0x1B201;
+      for (_0x1B201 in hotkeyConfig) {
+        if (hotkeyConfig[_0x1B201].defaultHotkey) {
+          if ("" != hotkeyConfig[_0x1B201].defaultHotkey) {
+            hotkeyMapping[hotkeyConfig[_0x1B201].defaultHotkey] = _0x1B201;
+          }
+        }
+      }
+      ;
+      setLocalStorage("hotkeyMapping", hotkeyMapping);
+    }
+    ;
+    if (getLocalStorage("chatCommand")) {
+      chatCommand = JSON.parse(getLocalStorage("chatCommand"));
+    } else {
+      chatCommand = l11l;
+      setLocalStorage("chatCommand", chatCommand);
+    }
+  };
+  this.replaceTos = function () {
+    $(".tosBox").remove();
+  };
+  this.setupOption = function () {
+    var _0x1B072 = {opt_self_name: {text: "Hide my name", default: false, handler: function (_0x1B43B) {
+      myApp.isHideSelfName = _0x1B43B;
+    }}, opt_name: {default: true, text: "Hide names", handler: function (_0x1B43B) {
+      setNames(!_0x1B43B);
+    }}, opt_color: {text: "Hide Colour", handler: function (_0x1B43B) {
+      setColors(_0x1B43B);
+    }}, opt_mass: {text: "Show Mass", default: true, handler: function (_0x1B43B) {
+      setShowMass(_0x1B43B);
+    }}, opt_stats: {text: "Skip stats", disabled: true, default: true, handler: function (_0x1B43B) {
+      setSkipStats(_0x1B43B);
+    }}, opt_mapgrid: {text: "Locations", default: false, handler: function (_0x1B43B) {
+      myApp.isEnableMapGrid = _0x1B43B;
+    }}, opt_cursorline: {text: "Mouse Line", default: false, handler: function (_0x1B43B) {
+      myApp.isEnableCursorLine = _0x1B43B;
+    }}, opt_zoom: {text: "Zoom", default: true, handler: function (_0x1B43B) {
+      myApp.isEnableZoom = _0x1B43B;
+    }}, opt_food: {text: "Hide Points", handler: function (_0x1B43B) {
+      myApp.isEnableHideFood = _0x1B43B;
+    }}, opt_gridline: {text: "Map Lines", default: false, handler: function (_0x1B43B) {
+      myApp.isEnableGridline = _0x1B43B;
+    }}, opt_simple_drawing: {text: "", default: true, handler: function (_0x1B43B) {}}, opt_score: {text: "Score", default: true, handler: function (_0x1B43B) {
+      myApp.isShowScroll = _0x1B43B;
+    }}, opt_ste: {text: "STE", default: false, handler: function (_0x1B43B) {
+      myApp.isShowSTE = _0x1B43B;
+    }}, opt_ball_total: {text: "Divisions", default: false, handler: function (_0x1B43B) {
+      myApp.isShowBallTotal = _0x1B43B;
+    }}, opt_minimap: {text: "Minimap", default: true, handler: function (_0x1B43B) {
+      if (_0x1B43B) {
+        minimap.show();
+      } else {
+        minimap.hide();
+      }
+    }}, opt_mousew: {text: "Mouse feed", handler: function (_0x1B43B) {
+      myApp.isEnableMouseW = _0x1B43B;
+    }}, opt_same_food_color: {text: "Rainbow Color", handler: function (_0x1B43B) {
+      myApp.isSameColorFood = !_0x1B43B;
+    }}, opt_transparent_cell: {default: false, text: "Transparent Cells", handler: function (_0x1B43B) {
+      myApp.isTransparentCell = _0x1B43B;
+    }}, opt_fps: {text: "FPS", default: true, handler: function (_0x1B43B) {
+      myApp.isShowFPS = _0x1B43B;
+    }}, opt_packetIO: {text: "Packets I/O", disabled: false, handler: function (_0x1B43B) {
+      myApp.isShowPacketIO = _0x1B43B;
+    }}, opt_auto_hide_mass: {text: "Hide Mass", default: false, handler: function (_0x1B43B) {
+      myApp.isAutoHideMass = _0x1B43B;
+    }}, opt_auto_hide_name: {text: "Auto Hide Names", default: true, handler: function (_0x1B43B) {
+      myApp.isAutoHideName = _0x1B43B;
+    }}, opt_show_text_stroke_line: {text: "Text Shadows", handler: function (_0x1B43B) {
+      myApp.isShowTextStrokeLine = _0x1B43B;
+    }}, opt_lock_zoom: {text: "Auto Zoom", handler: function (_0x1B43B) {
+      myApp.isEnableLockZoom = !_0x1B43B;
+    }}, opt_split_ind: {text: "Split indicator", handler: function (_0x1B43B) {
+      myApp.isEnableSplitInd = _0x1B43B;
+    }}, opt_custom_skin: {text: "Custom Skins", default: true, handler: function (_0x1B43B) {
+      myApp.isEnableCustomSkin = _0x1B43B;
+    }}, opt_chatbox: {text: "ChatBox", default: false, disabled: false, handler: function (_0x1B43B) {
+      _0x1B43B ? chatRoom.show() : chatRoom.hide();
+    }}, opt_chatpopup: {text: "Chat Popup", disabled: false, default: true, handler: function (_0x1B43B) {
+      myApp.isEnableChatpopup = _0x1B43B;
+    }}};
+    window.setYinSkinSupport = function (_0x1B44E) {
+      _0x1B072.opt_other_skin.handler(_0x1B44E);
+      setLocalStorage("opt_other_skin", _0x1B44E);
+    };
+    var _0x1A3AE;
+    var _0x1B428 = [];
+    for (_0x1A3AE in _0x1B072) {
+      if (!_0x1B072[_0x1A3AE].disabled) {
+        _0x1B428.push('<div class="checkbox"> <label><input id="' + _0x1A3AE + '" type="checkbox" name="optionsCheckboxes"></label> ' + _0x1B072[_0x1A3AE].text + "<br>");
+      }
+    }
+    ;
+    var _0x1ABFE = _0x1B428.splice(0, 14);
+    var _0x1ACA9 = 0;
+    for (; _0x1ACA9 < _0x1ABFE.length; _0x1ACA9++) {
+      $(".firstSettings").append(_0x1ABFE[_0x1ACA9]);
+    }
+    ;
+    _0x1ACA9 = 0;
+    for (; _0x1ACA9 < _0x1B428.length; _0x1ACA9++) {
+      $(".secondSettings").append(_0x1B428[_0x1ACA9]);
+    }
+    ;
+    $("input:checkbox").change(function () {
+      var _0x1B44E = $(this).prop("checked");
+      var _0x1A3C1 = $(this).prop("id");
+      setLocalStorage(_0x1A3C1, _0x1B44E);
+      if (_0x1B072[_0x1A3C1]) {
+        _0x1B072[_0x1A3C1].handler(_0x1B44E);
+      }
+    });
+    for (_0x1A3AE in _0x1B072) {
+      if (getLocalStorage(_0x1A3AE)) {
+        if ("true" == getLocalStorage(_0x1A3AE)) {
+          if ("opt_other_skin" == _0x1A3AE) {
+            setYinSkinSupport(true);
+          } else {
+            $("#" + _0x1A3AE).click();
+          }
+        }
+      } else {
+        if (_0x1B072[_0x1A3AE].default) {
+          $("#" + _0x1A3AE).click();
+        }
+      }
+    }
+    ;
+    $(".zoomSpeed").append('Zoom Speed: <span id="txt_zoom_speed">0.97</span></div><input oninput="$(\'#txt_zoom_speed\').text(this.value);" style="width:100%;" type="range" id="opt_zoom_speed" name="opt_zoom_speed" min="0.88" max="0.99" step="0.01" value="0.9">');
+    $("#opt_zoom_speed").change(function () {
+      _0x1A8CD = $("#opt_zoom_speed").val();
+      setLocalStorage("opt_zoom_speed", _0x1A8CD);
+    });
+  };
+  this.scoreInfo = function (_0x1A3D4) {
+    if (!_0x1A3D4 || !_0x1A3D4.length) {
+      return "";
+    }
+    ;
+    var _0x1B227 = "";
+    return myApp.isShowSTE && (_0x1B227 += "   STE: " + this.getSTE(_0x1A3D4)), myApp.isShowBallTotal && (_0x1B227 += "   [" + _0x1A3D4.length + "/16]"), _0x1B227;
+  };
+  this.scoreTxt = function (_0x1B098) {
+    return myApp.isShowScroll ? _0x1B098 : "";
+  };
+  this.isShowScoreInfo = function () {
+    return myApp.isShowScroll || (myApp.isShowSTE || myApp.isShowBallTotal);
+  };
+  this.showSystemMessage = function () {
+    return true;
+  };
+  this.getSTE = function (_0x1ABB2) {
+    var _0x1AAF4 = 0;
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+      if (_0x1ABB2[_0x1A3AE]) {
+        if (_0x1ABB2[_0x1A3AE].I) {
+          if (_0x1ABB2[_0x1A3AE].I.w) {
+            if (_0x1ABB2[_0x1A3AE].I.w > _0x1AAF4) {
+              _0x1AAF4 = _0x1ABB2[_0x1A3AE].I.w;
+            }
+          }
+        }
+      }
+    }
+    ;
+    return ~~(0.375 * _0x1AAF4);
+  };
+  this.createGameInfoBox = function () {
+    $(".gameinfo").prepend("<div id='game_info' class='alisio-panel'><p id='ip_info'></p><p id='region_info'></p><p id='gamemode_info'></p><p id='party_code_info'></p><p id='lb_info'></p></div>");
+    $("#game_info").append('<button id ="btn_copy_gameinfo" class="btn btn-warning btn-hotkeys" type="button">Copy</button>');
+  };
+  this.updateLBInfo = function () {
+    var _0x1B461 = "";
+    var _0x1ABB2 = myApp.getLeaderBoard();
+    if (_0x1ABB2) {
+      var _0x1A3AE = 0;
+      for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+        _0x1B461 += "<div>" + (_0x1A3AE + 1) + ".  " + escapeHtml(_0x1ABB2[_0x1A3AE]) + "</div>";
+      }
+    }
+    ;
+    $("#lb_info").html(_0x1B461);
+  };
+  this.isPrivateServer = function () {
+    return l1Il == currentIP;
+  };
+  this.getCurrentIP = function () {
+    return this.isPrivateServer() ? "----------" : currentIP.substring(5, currentIP.length);
+  };
+  this.getRegion = function () {
+    return $("#region option:selected").text().split(" ")[0];
+  };
+  this.getGameMode = function () {
+    return this.isPrivateServer() ? "----------" : $("#gamemode option:selected").text();
+  };
+  this.getTeamName = function () {
+    return ("" == $("#team_name").val() ? "" : $("#team_name").val()).trim();
+  };
+  this.getCustomSkinUrl = function () {
+    var _0x1B474 = ($("#skinurl").val() + "").trim();
+    return "" == _0x1B474 ? "" : _0x1B474;
+  };
+  this.getCurrentPartyCode = function () {
+    return $(".partyToken").val();
+  };
+  this.showMessage = function (_0x1B169, _0x1B072) {
+    if (0 == $("#message_dialog").length) {
+      myApp.createMessageDialog();
+    }
+    ;
+    $("#message_dialog_title").text(_0x1B169);
+    $("#message_dialog_content").html(_0x1B072);
+    $("#message_dialog").modal({show: "true"});
+  };
+  this.getName = function () {
+    var _0x1ACCF = $("#nick").val().trim();
+    return -1 != _0x1ACCF.indexOf("​") && (_0x1ACCF = ""), "" == _0x1ACCF ? "" : _0x1ACCF;
+  };
+  this.getLeaderBoard = function () {
+    var _0x1B487 = [];
+    var _0x1ABB2 = getLB();
+    if (_0x1ABB2) {
+      var _0x1A3AE = 0;
+      for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+        _0x1B487[_0x1B487.length] = "" == _0x1ABB2[_0x1A3AE].name ? "An unnamed cell" : escapeHtml(_0x1ABB2[_0x1A3AE].name);
+      }
+    }
+    ;
+    return _0x1B487;
+  };
+  this.setupHotKey = function () {
+    hotkeyConfig = {hk_start_new_game: {defaultHotkey: "N", name: "Start new game", keyDown: function () {
+      setNick(myApp.getName());
+    }, type: "NORMAL"}, hk_cheatw: {defaultHotkey: "E", name: "Macro W", keyDown: function () {
+      myApp.autoW = true;
+      handleQuickW();
+    }, keyUp: function () {
+      myApp.autoW = false;
+    }, type: "NORMAL"}, hk_quick_space: {defaultHotkey: "T", name: "16 Split", keyDown: function () {
+      if (!myApp.quickSpace) {
+        myApp.quickSpace = true;
+        quickSpace();
+      }
+    }, keyUp: function () {
+      myApp.quickSpace = false;
+    }, type: "NORMAL"}, hk_double_space: {defaultHotkey: "G", name: "Double space", keyDown: function () {
+      if (!myApp.doubleSpace) {
+        myApp.doubleSpace = true;
+        doubleSpace();
+      }
+    }, keyUp: function () {
+      myApp.doubleSpace = false;
+    }, type: "NORMAL"}, hk_stop_movement_toggle: {defaultHotkey: "ALT_S", name: "Stop movement (Toggle)", keyDown: function () {
+      myApp.isStopMovement = !myApp.isStopMovement;
+      myApp.specTeammate = null;
+    }, type: "NORMAL"}, hk_stop_movement: {defaultHotkey: "S", name: "Stop movement (Temporary)", keyDown: function () {
+      myApp.isStopMovement = true;
+      myApp.specTeammate = null;
+      moveTo(null, null);
+    }, keyUp: function () {
+      myApp.isStopMovement = false;
+    }, type: "NORMAL"}, hk_split_ind: {defaultHotkey: "I", name: "On / off split indicator", keyDown: function () {
+      $("#opt_split_ind").click();
+    }, type: "NORMAL"}, hk_lock_zoom: {defaultHotkey: "L", name: "On / off auto zoom", keyDown: function () {
+      $("#opt_lock_zoom").click();
+    }, type: "NORMAL"}, hk_attack_range: {defaultHotkey: "A", name: "Show attack range (Temporary)", keyDown: function () {
+      myApp.isEnableAttackRange = true;
+    }, keyUp: function () {
+      myApp.isEnableAttackRange = false;
+    }, type: "NORMAL"}, hk_attack_range_toggle: {defaultHotkey: "ALT_A", name: "Show attack range (Toggle)", keyDown: function () {
+      myApp.isEnableAttackRange = !myApp.isEnableAttackRange;
+    }, type: "NORMAL"}, hk_spec_teammate: {defaultHotkey: "V", name: "Spectating teammate", keyDown: function () {}, type: "NORMAL"}, hk_custom_skin: {defaultHotkey: "", name: "On / off Custom skin", keyDown: function () {
+      $("#opt_custom_skin").click();
+    }, type: "NORMAL"}, hk_skin: {defaultHotkey: "", name: "Show/ hide skins", keyDown: function () {
+      $("#opt_skin").click();
+    }, type: "NORMAL"}, hk_same_food_color: {defaultHotkey: "", name: "On / off Rainbow color", keyDown: function () {
+      $("#opt_same_food_color").click();
+    }, type: "NORMAL"}, hk_transparent_cell: {defaultHotkey: "", name: "On / off transparent cell", keyDown: function () {
+      $("#opt_transparent_cell").click();
+    }, type: "NORMAL"}, hk_fps: {defaultHotkey: "", name: "Show / Hide FPS counter", keyDown: function () {
+      $("#opt_fps").click();
+    }, type: "NORMAL"}, hk_zoom_a: {defaultHotkey: "1", name: "Zoom level 1", keyDown: function () {
+      if (!myApp.isEnableLockZoom) {
+        hotkeyConfig.hk_lock_zoom.keyDown();
+      }
+      ;
+      setZoomLevel(0.75);
+    }, type: "NORMAL"}, hk_zoom_b: {defaultHotkey: "2", name: "Zoom level 2", keyDown: function () {
+      if (!myApp.isEnableLockZoom) {
+        hotkeyConfig.hk_lock_zoom.keyDown();
+      }
+      ;
+      setZoomLevel(0.3);
+    }, type: "NORMAL"}, hk_zoom_c: {defaultHotkey: "3", name: "Zoom level 3", keyDown: function () {
+      if (!myApp.isEnableLockZoom) {
+        hotkeyConfig.hk_lock_zoom.keyDown();
+      }
+      ;
+      setZoomLevel(0.15);
+    }, type: "NORMAL"}, hk_zoom_d: {defaultHotkey: "4", name: "Zoom level 4", keyDown: function () {
+      if (!myApp.isEnableLockZoom) {
+        hotkeyConfig.hk_lock_zoom.keyDown();
+      }
+      ;
+      setZoomLevel(0.08);
+    }, type: "NORMAL"}, hk_zoom_e: {defaultHotkey: "5", name: "Zoom level 5", keyDown: function () {
+      if (!myApp.isEnableLockZoom) {
+        hotkeyConfig.hk_lock_zoom.keyDown();
+      }
+      ;
+      setZoomLevel(0.05);
+    }, type: "NORMAL"}, hk_name: {defaultHotkey: "ALT_N", name: "Show / hide names", keyDown: function () {
+      $("#opt_name").click();
+    }, type: "NORMAL"}, hk_self_name: {defaultHotkey: "", name: "Show / hide own name", keyDown: function () {
+      $("#opt_self_name").click();
+    }, type: "NORMAL"}, hk_color: {defaultHotkey: "", name: "Show / hide colors", keyDown: function () {
+      $("#opt_color").click();
+    }, type: "NORMAL"}, hk_mass: {defaultHotkey: "", name: "Show / hide mass", keyDown: function () {
+      $("#opt_mass").click();
+    }, type: "NORMAL"}, hk_stat: {defaultHotkey: "", name: "On / off Skip stats", keyDown: function () {
+      $("#opt_stats").click();
+    }, type: "NORMAL"}, hk_zoom: {defaultHotkey: "ALT_Z", name: "On / off Zoom", keyDown: function () {
+      $("#opt_zoom").click();
+    }, type: "NORMAL"}, hk_food: {defaultHotkey: "F", name: "Show / hide Pellets", keyDown: function () {
+      $("#opt_food").click();
+    }, type: "NORMAL"}, hk_gridline: {defaultHotkey: "ALT_G", name: "Show / hide Gridline", keyDown: function () {
+      $("#opt_gridline").click();
+    }, type: "NORMAL"}, hk_border: {defaultHotkey: "B", name: "Reset Border", keyDown: function () {}, type: "NORMAL"}, hk_simple_draw: {defaultHotkey: "", name: "On / off Simple draw", keyDown: function () {
+      $("#opt_simple_drawing").click();
+    }, type: "NORMAL"}, hk_score: {defaultHotkey: "", name: "Show / hide Score", keyDown: function () {
+      $("#opt_score").click();
+    }, type: "NORMAL"}, hk_ste: {defaultHotkey: "", name: "Show / hide STE", keyDown: function () {
+      $("#opt_ste").click();
+    }, type: "NORMAL"}, hk_n16: {defaultHotkey: "", name: "Show / hide [n/16]", keyDown: function () {
+      $("#opt_ball_total").click();
+    }, type: "NORMAL"}, hk_auto_hide_mass: {defaultHotkey: "", name: "On / off Auto hide mass", keyDown: function () {
+      $("#opt_auto_hide_mass").click();
+    }, type: "NORMAL"}, hk_auto_hide_name: {defaultHotkey: "", name: "On / off Auto hide name", keyDown: function () {
+      $("#opt_auto_hide_name").click();
+    }, type: "NORMAL"}, hk_show_text_stroke_line: {defaultHotkey: "", name: "Show / hide Text shadow", keyDown: function () {
+      $("#opt_show_text_stroke_line").click();
+    }, type: "NORMAL"}, hk_minimap: {defaultHotkey: "ALT_M", name: "Show / hide Minimap", keyDown: function () {
+      $("#opt_minimap").click();
+    }, type: "NORMAL"}, hk_mousew: {defaultHotkey: "", name: "On / off Mouse W", keyDown: function () {
+      $("#opt_mousew").click();
+    }, type: "NORMAL"}, hk_send_msg: {defaultHotkey: "ENTER", name: "Chatbox send message", keyDown: function () {
+      chatRoom.enter();
+    }, type: "NORMAL"}, hk_send_msg1: {defaultHotkey: "ALT_1", name: "Chatbox send message 1", keyDown: function () {
+      console.log("CHAT MESSAGE");
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg1);
+    }, type: "TEXT"}, hk_send_msg2: {defaultHotkey: "ALT_2", name: "Chatbox send message 2", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg2);
+    }, type: "TEXT"}, hk_send_msg3: {defaultHotkey: "ALT_3", name: "Chatbox send message 3", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg3);
+    }, type: "TEXT"}, hk_send_msg4: {defaultHotkey: "ALT_4", name: "Chatbox send message 4", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg4);
+    }, type: "TEXT"}, hk_send_msg5: {defaultHotkey: "ALT_5", name: "Chatbox send message 5", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg5);
+    }, type: "TEXT"}, hk_send_msg6: {defaultHotkey: "ALT_6", name: "Chatbox send message 6", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg6);
+    }, type: "TEXT"}, hk_send_msg7: {defaultHotkey: "ALT_7", name: "Chatbox send message 7", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg7);
+    }, type: "TEXT"}, hk_send_msg8: {defaultHotkey: "ALT_8", name: "Chatbox send message 8", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg8);
+    }, type: "TEXT"}, hk_send_msg9: {defaultHotkey: "ALT_9", name: "Chatbox send message 9", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg9);
+    }, type: "TEXT"}, hk_send_msg10: {defaultHotkey: "ALT_0", name: "Chatbox send message 10", keyDown: function () {
+      chatRoom.sendMessage(chatCommand.input_hk_send_msg10);
+    }, type: "TEXT"}};
+  };
+  this.createMessageDialog = function () {
+    var _0x1B49A;
+    var _0x1B4AD;
+    _0x1B4AD = $("<div class='modal-footer'>");
+    _0x1B4AD.append("<button type='button' class='btn btn-default' data-dismiss='modal'>OK</button>");
+    _0x1B49A = $("<div class='modal-content'/>");
+    _0x1B49A.append($("<div class='modal-header'/>").append("<button type='button' class='close' data-dismiss='modal'>&times;</button><h4 id='message_dialog_title' class='modal-title'></h4>"));
+    _0x1B49A.append($("<div id='message_dialog_content' class='modal-body'>"));
+    _0x1B49A.append(_0x1B4AD);
+    _0x1B49A = $("<div id='message_dialog' class='modal fade' role='dialog'/>").append("<div class='modal-dialog'/>").append(_0x1B49A);
+    $("body").append(_0x1B49A);
+    $("#message_dialog").modal({backdrop: "static", keyboard: false});
+    $(document).on("shown.bs.modal", "#message_dialog", function () {
+      var _0x1A3E7 = $("#message_dialog>.modal-content").outerHeight();
+      var _0x1A3FA = $(document).outerHeight();
+      if (_0x1A3E7 > _0x1A3FA) {
+        $("#message_dialog").css("overflow", "auto");
+      } else {
+        $("#message_dialog").css("margin-top", _0x1A3FA / 2 - _0x1A3E7 / 2 - 40);
+      }
+    });
+    $(document).on("hide.bs.modal", "#message_dialog", function () {});
+  };
+  this.setUpHotKeyConfigPage = function () {
+    $(".left-side > div:nth-child(2)").after('<div class="alisio-panel alisio-side-panel alisioProfilePanel level" style="display: block !important;text-align:center"><button type="button" class="btn btn-success btn-hotkey" data-toggle="modal" data-target="#hotkeys_setting">Hotkeys</button></div>');
+    var _0x1ABD8;
+    var _0x1B4C0;
+    _0x1B4C0 = $('<div class="modal-footer" style="background: #333;">');
+    _0x1B4C0.append("<button onclick='resetDefaultHotkey();' type='button' class='btn btn-danger' style='float:left;'>Reset to Default</button>");
+    _0x1B4C0.append("<button type='button' class='btn btn-warning' data-dismiss='modal'>Cancel</button>");
+    _0x1B4C0.append("<button id='btn_save_hotkey' onclick='saveHotkeys();' type='button' class='btn btn-success' data-dismiss='modal'>Save</button>");
+    _0x1ABD8 = $("<div class='modal-content' style='background: #333;'/>");
+    _0x1ABD8.append($("<div class='modal-header'/>").append("<button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>Hotkey Setup</h4>"));
+    _0x1ABD8.append($("<div id='hotkey_modal_body' class='modal-body'>").append(myApp.getHotkeyDivHtml()));
+    _0x1ABD8.append(_0x1B4C0);
+    _0x1ABD8 = $("<div id='hotkeys_setting' class='modal fade' role='dialog'/>").append("").append(_0x1ABD8);
+    $("body").append(_0x1ABD8);
+    $(document).on("hide.bs.modal", "#hotkeys_setting", function () {
+      if (selectedHotkeyRow) {
+        selectedHotkeyRow.removeClass("table-row-selected");
+      }
+      ;
+      selectedHotkeyRow = null;
+      myApp.refreshHotkeySettingPage();
+    });
+    $("#hotkey_table .row").not(".header").click(function () {
+      if (selectedHotkeyRow) {
+        selectedHotkeyRow.removeClass("table-row-selected");
+      }
+      ;
+      selectedHotkeyRow = $(this);
+      selectedHotkeyRow.addClass("table-row-selected");
+    });
+  };
+  window.saveHotkeys = function () {
+    var _0x1ABB2 = $(".hotkey");
+    hotkeyMapping = {};
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+      hotkeyMapping[$(_0x1ABB2[_0x1A3AE]).text()] = $(_0x1ABB2[_0x1A3AE]).attr("data-hotkeyid");
+    }
+    ;
+    setLocalStorage("hotkeyMapping", hotkeyMapping);
+    var _0x1B4D3;
+    for (_0x1B4D3 in chatCommand) {
+      chatCommand[_0x1B4D3] = $("#" + _0x1B4D3).val();
+    }
+    ;
+    setLocalStorage("chatCommand", chatCommand);
+  };
+  this.copyGameInfo = function () {
+    var _0x1B4E6;
+    _0x1B4E6 = "Current IP = " + myApp.getCurrentIP();
+    _0x1B4E6 += "\nRegion : " + $("#region option:selected").text().split(" ")[0];
+    _0x1B4E6 += "\nGame mode : " + $("#gamemode option:selected").text();
+    _0x1B4E6 += "\nParty Code : " + myApp.getCurrentPartyCode();
+    var _0x1ABB2 = myApp.getLeaderBoard();
+    if (_0x1ABB2 && 0 != _0x1ABB2.length) {
+      var _0x1A3AE = 0;
+      for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+        _0x1B4E6 += "\n" + (_0x1A3AE + 1) + ".  " + _0x1ABB2[_0x1A3AE];
+      }
+    }
+    ;
+    copyToClipboard(_0x1B4E6);
+  };
+  window.resetDefaultHotkey = function () {
+    var _0x1AD54;
+    _0x1AD54 = hotkeyMapping;
+    lIl1 = {};
+    var _0x1B201;
+    for (_0x1B201 in hotkeyConfig) {
+      if (hotkeyConfig[_0x1B201].defaultHotkey) {
+        if ("" != hotkeyConfig[_0x1B201].defaultHotkey) {
+          lIl1[hotkeyConfig[_0x1B201].defaultHotkey] = _0x1B201;
+        }
+      }
+    }
+    ;
+    hotkeyMapping = lIl1;
+    myApp.refreshHotkeySettingPage();
+    hotkeyMapping = _0x1AD54;
+    lIl1 = null;
+    var _0x1ACCF;
+    for (_0x1ACCF in l11l) {
+      $("#" + _0x1ACCF).val(l11l[_0x1ACCF]);
+    }
+  };
+  this.refreshHotkeySettingPage = function () {
+    var _0x1ABB2 = $(".hotkey");
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+      $(_0x1ABB2[_0x1A3AE]).text(" ");
+    }
+    ;
+    var _0x1B4F9;
+    for (_0x1B4F9 in hotkeyMapping) {
+      $("[data-hotkeyid=" + hotkeyMapping[_0x1B4F9] + "]").text(_0x1B4F9);
+    }
+    ;
+    var _0x1ACCF;
+    for (_0x1ACCF in chatCommand) {
+      $("#" + _0x1ACCF).val(chatCommand[_0x1ACCF]);
+    }
+  };
+  this.getHotkeyDivHtml = function () {
+    var _0x1B0F7 = "";
+    var _0x1A40D = $("<div id='hotkey_setting'></div>");
+    var _0x1B50C = $("<div id='hotkey_table' class='table'></div>");
+    var _0x1B49A = $("<div class='row header'></div>");
+    _0x1B49A.append($("<div class='cell' style='width:170px;'>Hotkey</div>"));
+    _0x1B49A.append($("<div class='cell' style='width:222px;'>Function</div>"));
+    _0x1B49A.append($("<div class='cell'>Message</div>"));
+    _0x1B50C.append(_0x1B49A);
+    _0x1B49A = null;
+    var _0x1A3C1;
+    for (_0x1A3C1 in hotkeyConfig) {
+      _0x1B49A = $("<div class='row'></div>");
+      _0x1B49A.append($("<div data-hotkeyId='" + _0x1A3C1 + "' class='cell hotkey'>" + getHotkeyById(_0x1A3C1) + "</div>"));
+      _0x1B49A.append($("<div class='cell'>" + hotkeyConfig[_0x1A3C1].name + "</div>"));
+      if ("TEXT" == hotkeyConfig[_0x1A3C1].type) {
+        _0x1B49A.append($("<div class='cell'><input id='input_" + _0x1A3C1 + "' maxlength='200' style='width:100%;color:black;' type='text' value='" + chatCommand["input_" + _0x1A3C1] + "'></input></div>"));
+      } else {
+        _0x1B49A.append($("<div class='cell'> / </div>"));
+      }
+      ;
+      _0x1B50C.append(_0x1B49A);
+    }
+    ;
+    return _0x1A40D.append(_0x1B50C), _0x1B0F7 += $("<p>Step 1: Click on the function item</p>")[0].outerHTML, _0x1B0F7 += $("<p>Step 2: Press wanted hotkey to modify</p>")[0].outerHTML, _0x1B0F7 += $("<p>Press [DEL] key to remove selected hotkey</p>")[0].outerHTML, _0x1B0F7 += $("<p>Allowed hotkey combinations: [CTRL] + [ALT] + 0-9, a-z, [TAB], [ENTER]</p>")[0].outerHTML, _0x1B0F7 += $("<br></br>")[0].outerHTML, _0x1B0F7 += _0x1A40D[0].outerHTML, $("<div/>").append(_0x1B0F7).html();
+  };
+  this.checkVersion = function () {
+    var _0x1B1EE = getLocalStorage("lastestVersion");
+    if (!(_0x1B1EE && _0x1B1EE == myApp.version)) {
+      myApp.applyNewUpdate();
+      setLocalStorage("lastestVersion", myApp.version);
+    }
+  };
+  this.showAnnouncement = function () {};
+  this.applyNewUpdate = function () {};
+  this.setupHints = function () {};
+  this.setupHintsImpl = function (_0x1A420, _0x1B51F) {
+    _0x1A420.addClass("hint--bottom hint--rounded");
+    _0x1A420.attr("data-hint", _0x1B51F);
+  };
+  this.ajax = function (_0x1ADB3, _0x1B072, _0x1A433, _0x1B532) {
+    _0x1B532 = null;
+    var _0x1B545;
+    try {
+      _0x1B545 = new lIlI;
+    } catch (a) {
+      try {
+        _0x1B545 = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (s) {
+        try {
+          _0x1B545 = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (l) {
+          return alert("Your browser does not support Ajax."), false;
+        }
+      }
+    }
+    ;
+    return _0x1B545.onreadystatechange = function () {
+      if (4 == _0x1B545.readyState) {
+        _0x1A433(_0x1B545);
+      }
+    }, _0x1B545.open(_0x1B072, _0x1ADB3, true), _0x1B545.send(_0x1B532), _0x1B545;
+  };
+  this.getSkinImage = function (_0x1A446) {
+    return _0x1A446 && "" != _0x1A446 ? customSkin[_0x1A446] ? customSkin[_0x1A446] : (-1 == skinDownloadQueue.indexOf(_0x1A446) && skinDownloadQueue.push(_0x1A446), null) : null;
+  };
+  this.downloadSkin = function () {
+    if (0 != skinDownloadQueue.length) {
+      var _0x1B558 = skinDownloadQueue.shift();
+      if (!customSkin[_0x1B558]) {
+        if (lI11[_0x1B558] && 5 < lI11[_0x1B558]) {
+          if (myApp.getCustomSkinUrl() === _0x1B558) {}
+        } else {
+          window.postMessage({action: Action.IMAGE, data: _0x1B558}, "*");
+        }
+      }
+    }
+    ;
+    setTimeout(myApp.downloadSkin, 2e3);
+  };
+  this.changePreviewImage = function (_0x1ADB3) {
+    $("#preview-img").fadeOut(315, function () {
+      $(this).attr("src", _0x1ADB3).bind("onreadystatechange load", function () {
+        if (this.complete) {
+          $(this).fadeIn(315);
+        }
+      });
+    });
+  };
+}
+function ChatRoom() {
+  this.container = "";
+  this.isShow = false;
+  this.lastMsg = "";
+  this.width = 340;
+  this.height = 350;
+  var _0x1B0BE = this;
+  var _0x1A446 = 0;
+  this.createChatBox = function () {
+    $(this.container).append("<div id='chatroom'></div>");
+    $("#overlays2").append("<div id='chatboxArea2'><input id='input_box2' type='text' placeholder='type your message...'></input></div>");
+    this.hide();
+    $("#chatboxArea2").hide();
+    $("#chatroom").mouseup(function () {
+      _0x1B0BE.resize();
+    });
+  };
+  _0x1B0BE.resize = function () {
+    if ($("#chatroom").width() != this.width || $("#chatroom").height() != this.height) {
+      if ($("#chatroom").perfectScrollbar) {
+        $("#chatroom").perfectScrollbar("update");
+      }
+    }
+  };
+  this.setContainer = function (_0x1B0D1) {
+    this.container = _0x1B0D1;
+  };
+  this.sendMessage = function (_0x1B0E4) {
+    if (_0x1B0E4 = _0x1B0E4.trim()) {
+      if (!(2e3 > Date.now() - _0x1A446 && 50 > _0x1B0E4.length)) {
+        conn.sendMessage({sender: myApp.getName(), msg: _0x1B0E4});
+        this.lastMsg = _0x1B0E4;
+        _0x1A446 = Date.now();
+      }
+    }
+  };
+  this.enter = function () {
+    if (this.isFocus()) {
+      this.sendMessage($("#input_box2").val());
+      $("#input_box2").val("");
+      $("#input_box2").blur();
+      $("#chatboxArea2").hide();
+    } else {
+      this.focus();
+    }
+  };
+  this.popup = function (_0x1A433) {
+    if (myApp.isEnableChatpopup) {
+      if (!this.isShow) {
+        if ($.toast) {
+          $.toast(_0x1A433);
+        } else {
+          toastQueue.push(_0x1A433);
+        }
+      }
+    }
+  };
+  this.popupChat = function (_0x1A47F, _0x1B0E4) {
+    var _0x1B10A = "#4caf50";
+    var _0x1B0F7 = escapeHtml(_0x1A47F);
+    var _0x1B11D = this.replaceHKGIcon(escapeHtml(_0x1B0E4));
+    if ("不留名 [slick]" == _0x1A47F) {
+      _0x1B0F7 = this.replaceHKGIcon(_0x1B0F7);
+    }
+    ;
+    this.popup({heading: '<span class="toast_sender">' + _0x1B0F7 + ": </span>", text: '<span class="toast_chatmsg">' + _0x1B11D + "</span>", showHideTransition: "fade", bgColor: "rgba(10, 10, 10, 0.3)", allowToastClose: false, hideAfter: 5400, stack: 7});
+    $(".toast_sender").css("color", _0x1B10A);
+  };
+  this.showSystemMessage = function (_0x1B130) {
+    this.showSystemMessageImpl(_0x1B130);
+    this.popupInfo(_0x1B130);
+  };
+  this.showSystemWarning = function (_0x1B130) {
+    this.showSystemMessageImpl(_0x1B130);
+    this.popupWarning(_0x1B130);
+  };
+  this.showSystemMessageImpl = function (_0x1B143) {
+    if (myApp.showSystemMessage()) {
+      $("#chatroom").append($("<div/>").append($("<span class='system'/>").text(this.getTimeStr() + _0x1B143)));
+      this.scrollDown();
+    }
+  };
+  this.getTimeStr = function () {
+    var _0x1B156 = new Date;
+    var _0x1A459 = _0x1B156.getMinutes();
+    return _0x1A459 = 10 > _0x1A459 ? "0" + _0x1A459 : _0x1A459, _0x1B156.getHours() + ":" + _0x1A459 + " ";
+  };
+  this.receiveMessage = function (_0x1B0E4, _0x1B169) {
+    var _0x1B10A = "#4caf50";
+    var _0x1B17C = $("<div/>");
+    var _0x1B18F = $("<span class='time'>").text(this.getTimeStr());
+    var _0x1AACE = $("<span class='sender'>").text(_0x1B0E4 + " : ");
+    if ("不留名 [slick]" == _0x1B0E4) {}
+    ;
+    _0x1B17C.append(_0x1B18F);
+    _0x1B17C.append(_0x1AACE);
+    _0x1B18F = $("<span class='msg'>").text(_0x1B169);
+    _0x1B17C.append(_0x1B18F);
+    $("#chatroom").append(_0x1B17C);
+    this.scrollDown();
+    this.popupChat(_0x1B0E4, _0x1B169);
+    $(".sender").css("color", _0x1B10A);
+  };
+  this.replaceHKGIcon = function (_0x1B1A2) {
+    var _0x1B1B5;
+    for (_0x1B1B5 in lIII) {
+      _0x1B1A2 = _0x1B1A2.replace(new RegExp(_0x1B1B5.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "_0x36bc[665]"), "g"), '<img alt="$1" src="' + lIII[_0x1B1B5] + '">');
+    }
+    ;
+    var _0x1A46C = $('img[alt="$1"]');
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < _0x1A46C.length; _0x1A3AE++) {
+      for (_0x1B1B5 in lIII) {
+        if (_0x1A46C[_0x1A3AE].src == lIII[_0x1B1B5]) {
+          $(_0x1A46C[_0x1A3AE]).attr("alt", _0x1B1B5);
+          break;
+        }
+      }
+    }
+    ;
+    return _0x1B1A2;
+  };
+  this.scrollDown = function () {
+    if ($("#chatroom").perfectScrollbar) {
+      $("#chatroom").scrollTop($("#chatroom").prop("scrollHeight"));
+      $("#chatroom").perfectScrollbar("update");
+    }
+  };
+  this.show = function () {
+    $("#chatroom").show();
+    this.isShow = true;
+    this.scrollDown();
+  };
+  this.hide = function () {
+    $("#chatroom").hide();
+    this.isShow = false;
+  };
+  this.isFocus = function () {
+    return $("#input_box2").is(":focus");
+  };
+  this.focus = function () {
+    $("#chatboxArea2").show();
+    $("#input_box2").focus();
+  };
+  this.createScrollBar = function () {
+    $("#chatroom").perfectScrollbar({minScrollbarLength: 50, suppressScrollX: false});
+  };
+}
+function Minimap() {
+  var _0x1B23A;
+  var _0x1AAE1;
+  var _0x1B072;
+  var _0x1A388;
+  var _0x1AAF4 = 200;
+  var _0x1ACBC = 200;
+  var _0x1AB66 = false;
+  var _0x1B24D = 33.333333333333336;
+  var _0x1A8CD = {};
+  this.createMap = function (_0x1AB66) {
+    if (_0x1AB66) {
+      _0x1AAF4 = _0x1ACBC = _0x1AB66;
+    }
+    ;
+    $("body").append("<canvas id='minimapNode'>");
+    $("body").append("<canvas id='minimap' >");
+    _0x1B23A = document.getElementById("minimap");
+    _0x1AAE1 = _0x1B23A.getContext("2d");
+    _0x1B23A.width = _0x1AAF4;
+    _0x1B23A.height = _0x1ACBC;
+    _0x1AAE1.scale(1, 1);
+    _0x1AAE1.strokeStyle = "#333";
+    _0x1AAE1.fillStyle = getLocalStorage("minimapbackgroundcolor");
+    _0x1AAE1.globalAlpha = 0.5;
+    _0x1AAE1.lineWidth = 2;
+    _0x1AAE1.strokeRect(0, 0, _0x1B23A.width, _0x1B23A.height);
+    _0x1AAE1.fillRect(0, 0, _0x1B23A.width, _0x1B23A.height);
+    _0x1AAE1.textAlign = "center";
+    _0x1AAE1.textBaseline = "middle";
+    _0x1AAE1.globalAlpha = 0.2;
+    _0x1AAE1.font = "11px Verdana";
+    _0x1AAE1.fillStyle = "#FFFFFF";
+    _0x1AAE1.fillText("A1", _0x1AAF4 / 5 / 2, _0x1ACBC / 5 / 2);
+    _0x1AAE1.fillText("A2", _0x1AAF4 / 5 / 2 * 3, _0x1ACBC / 5 / 2);
+    _0x1AAE1.fillText("A3", _0x1AAF4 / 5 / 2 * 5, _0x1ACBC / 5 / 2);
+    _0x1AAE1.fillText("A4", _0x1AAF4 / 5 / 2 * 7, _0x1ACBC / 5 / 2);
+    _0x1AAE1.fillText("A5", _0x1AAF4 / 5 / 2 * 9, _0x1ACBC / 5 / 2);
+    _0x1AAE1.fillText("B1", _0x1AAF4 / 5 / 2, _0x1ACBC / 5 / 2 * 3);
+    _0x1AAE1.fillText("B2", _0x1AAF4 / 5 / 2 * 3, _0x1ACBC / 5 / 2 * 3);
+    _0x1AAE1.fillText("B3", _0x1AAF4 / 5 / 2 * 5, _0x1ACBC / 5 / 2 * 3);
+    _0x1AAE1.fillText("B4", _0x1AAF4 / 5 / 2 * 7, _0x1ACBC / 5 / 2 * 3);
+    _0x1AAE1.fillText("B5", _0x1AAF4 / 5 / 2 * 9, _0x1ACBC / 5 / 2 * 3);
+    _0x1AAE1.fillText("C1", _0x1AAF4 / 5 / 2, _0x1ACBC / 5 / 2 * 5);
+    _0x1AAE1.fillText("C2", _0x1AAF4 / 5 / 2 * 3, _0x1ACBC / 5 / 2 * 5);
+    _0x1AAE1.fillText("C3", _0x1AAF4 / 5 / 2 * 5, _0x1ACBC / 5 / 2 * 5);
+    _0x1AAE1.fillText("C4", _0x1AAF4 / 5 / 2 * 7, _0x1ACBC / 5 / 2 * 5);
+    _0x1AAE1.fillText("C5", _0x1AAF4 / 5 / 2 * 9, _0x1ACBC / 5 / 2 * 5);
+    _0x1AAE1.fillText("D1", _0x1AAF4 / 5 / 2, _0x1ACBC / 5 / 2 * 7);
+    _0x1AAE1.fillText("D2", _0x1AAF4 / 5 / 2 * 3, _0x1ACBC / 5 / 2 * 7);
+    _0x1AAE1.fillText("D3", _0x1AAF4 / 5 / 2 * 5, _0x1ACBC / 5 / 2 * 7);
+    _0x1AAE1.fillText("D4", _0x1AAF4 / 5 / 2 * 7, _0x1ACBC / 5 / 2 * 7);
+    _0x1AAE1.fillText("D5", _0x1AAF4 / 5 / 2 * 9, _0x1ACBC / 5 / 2 * 7);
+    _0x1AAE1.fillText("E1", _0x1AAF4 / 5 / 2, _0x1ACBC / 5 / 2 * 9);
+    _0x1AAE1.fillText("E2", _0x1AAF4 / 5 / 2 * 3, _0x1ACBC / 5 / 2 * 9);
+    _0x1AAE1.fillText("E3", _0x1AAF4 / 5 / 2 * 5, _0x1ACBC / 5 / 2 * 9);
+    _0x1AAE1.fillText("E4", _0x1AAF4 / 5 / 2 * 7, _0x1ACBC / 5 / 2 * 9);
+    _0x1AAE1.fillText("E5", _0x1AAF4 / 5 / 2 * 9, _0x1ACBC / 5 / 2 * 9);
+    _0x1B072 = document.getElementById("minimapNode");
+    _0x1A388 = _0x1B072.getContext("2d");
+    _0x1B072.width = _0x1AB66;
+    _0x1B072.height = _0x1AB66;
+    _0x1A388.globalAlpha = 1;
+    _0x1A388.scale(1, 1);
+    _0x1A388.textAlign = "center";
+    _0x1A388.textBaseline = "middle";
+    _0x1A388.font = "12px Ubuntu";
+    this.hide();
+    setInterval(function () {
+      minimap.drawNodes();
+    }, _0x1B24D);
+  };
+  this.uploadSelfPosition = function () {
+    if (getCurrentX() && getCurrentY()) {
+      _0x1AB66 = true;
+      conn.uploadCoords({x: getCurrentX(), y: getCurrentY()});
+    } else {
+      if (_0x1AB66) {
+        conn.uploadCoords({x: getCurrentX(), y: getCurrentY()});
+        _0x1AB66 = false;
+      }
+    }
+  };
+  this.isExists = function (_0x1B098) {
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < nodeList.length; _0x1A3AE++) {
+      if (_0x1B098 == nodeList[_0x1A3AE][0]) {
+        return _0x1A3AE;
+      }
+    }
+    ;
+    return null;
+  };
+  this.updateNode = function (_0x1AE4B) {
+    var _0x1B260 = "#4caf50";
+    var _0x1A3AE;
+    var _0x1A420 = _0x1AE4B.id;
+    var _0x1B273 = _0x1AE4B.x;
+    var _0x1B286 = _0x1AE4B.y;
+    var _0x1B299 = _0x1AE4B.name;
+    if (_0x1A3AE = this.isExists(_0x1A420)) {
+      nodeList[_0x1A3AE][1] = _0x1B299;
+      nodeList[_0x1A3AE][2] = _0x1B273;
+      nodeList[_0x1A3AE][3] = _0x1B286;
+      nodeList[_0x1A3AE][7] = true;
+      nodeList[_0x1A3AE][4] = _0x1B260;
+      nodeList[_0x1A3AE][8] = Date.now();
+      if (!(nodeList[_0x1A3AE][12] && nodeList[_0x1A3AE][13])) {
+        nodeList[_0x1A3AE][12] = _0x1B273;
+        nodeList[_0x1A3AE][13] = _0x1B286;
+      }
+    } else {
+      nodeList[nodeList.length] = [_0x1A420, _0x1B299, null, null, "#4caf50", null, null];
+    }
+  };
+  this.addNode = function (_0x1B2AC) {
+    nodeList[nodeList.length] = [_0x1B2AC.id, _0x1B2AC.name, null, null, nodeColor, _0x1B2AC.skinurl, _0x1B2AC.cellColor];
+  };
+  this.deleteNode = function (_0x1AE5E) {};
+  this.drawNodes = function () {
+    var _0x1A492 = getLengthX();
+    var _0x1AB66 = getLengthY();
+    _0x1A388.clearRect(0, 0, _0x1B072.width, _0x1B072.height);
+    var _0x1A3E7 = getCurrentX();
+    var _0x1A3FA = getCurrentY();
+    if (_0x1A3E7) {
+      if (_0x1A3FA) {
+        _0x1A8CD.x = nodeList[0][2];
+        _0x1A8CD.y = nodeList[0][3];
+      }
+    }
+    ;
+    nodeList[0][2] = _0x1A3E7;
+    nodeList[0][3] = _0x1A3FA;
+    nodeList[0][12] = _0x1A3E7;
+    nodeList[0][13] = _0x1A3FA;
+    if (myApp.isSpectating) {
+      nodeList[1][2] = getTop1X();
+      nodeList[1][3] = getTop1Y();
+      nodeList[1][12] = getTop1X();
+      nodeList[1][13] = getTop1Y();
+    }
+    ;
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < nodeList.length; _0x1A3AE++) {
+      if (nodeList[_0x1A3AE][2] && (nodeList[_0x1A3AE][3] && (nodeList[_0x1A3AE][12] && (nodeList[_0x1A3AE][13] && "del" != nodeList[_0x1A3AE][0])))) {
+        var _0x1A4A5;
+        var _0x1A4B8;
+        var _0x1ABC5;
+        var _0x1B2BF = "#ffff00";
+        _0x1ABC5 = 1 == _0x1A3AE ? 7 : 5;
+        nodeList[_0x1A3AE][2] = ~~nodeList[_0x1A3AE][2];
+        nodeList[_0x1A3AE][3] = ~~nodeList[_0x1A3AE][3];
+        nodeList[_0x1A3AE][12] = ~~nodeList[_0x1A3AE][12];
+        nodeList[_0x1A3AE][13] = ~~nodeList[_0x1A3AE][13];
+        nodeList[_0x1A3AE][12] += (_0x1A492 / 2 + nodeList[_0x1A3AE][2] - (_0x1A492 / 2 + nodeList[_0x1A3AE][12])) / 30;
+        nodeList[_0x1A3AE][13] += (_0x1AB66 / 2 + nodeList[_0x1A3AE][3] - (_0x1AB66 / 2 + nodeList[_0x1A3AE][13])) / 30;
+        _0x1A4A5 = (_0x1A492 / 2 + nodeList[_0x1A3AE][12]) / _0x1A492 * _0x1AAF4;
+        _0x1A4B8 = (_0x1AB66 / 2 + nodeList[_0x1A3AE][13]) / _0x1AB66 * _0x1ACBC;
+        _0x1A388.beginPath();
+        _0x1A388.arc(_0x1A4A5, _0x1A4B8, _0x1ABC5, 0, 2 * Math.PI, false);
+        _0x1A388.fillStyle = 1 > _0x1A3AE ? _0x1B2BF : nodeList[_0x1A3AE][4];
+        _0x1A388.strokeStyle = "rgba(51,51,51,0.5)";
+        _0x1A388.lineWidth = 1;
+        _0x1A388.fill();
+        _0x1A388.stroke();
+        if (_0x1A3AE > 1) {
+          _0x1A388.fillStyle = "#fff";
+          _0x1A388.fillText(nodeList[_0x1A3AE][1], _0x1A4A5, _0x1A4B8 - 10);
+        }
+      }
+    }
+    ;
+    if (_0x1A8CD.x) {
+      if (_0x1A8CD.y) {
+        if (!(_0x1A3E7 && _0x1A3FA)) {
+          _0x1A4A5 = (_0x1A492 / 2 + _0x1A8CD.x) / _0x1A492 * _0x1AAF4;
+          _0x1A4B8 = (_0x1AB66 / 2 + _0x1A8CD.y) / _0x1AB66 * _0x1ACBC;
+          _0x1A388.beginPath();
+          _0x1A388.moveTo(_0x1A4A5 - 3, _0x1A4B8 - 3);
+          _0x1A388.lineTo(_0x1A4A5 + 3, _0x1A4B8 + 3);
+          _0x1A388.moveTo(_0x1A4A5 + 3, _0x1A4B8 - 3);
+          _0x1A388.lineTo(_0x1A4A5 - 3, _0x1A4B8 + 3);
+          _0x1A388.stroke();
+          _0x1A388.lineWidth = 1;
+          _0x1A388.strokeStyle = "yellow";
+          _0x1A388.stroke();
+        }
+      }
+    }
+  };
+  this.hide = function () {
+    $("#minimap").hide();
+    $("#minimapNode").hide();
+  };
+  this.show = function () {
+    $("#minimap").show();
+    $("#minimapNode").show();
+  };
+  this.setDeadPosition = function (_0x1A9FD) {
+    _0x1A8CD = _0x1A9FD ? _0x1A9FD : {};
+  };
+}
+function Connection() {
+  var _0x1B0E4;
+  var _0x1A4CB = this;
+  _0x1A4CB.connect = function () {
+    socket = io("149.202.209.118:9700", {transports: ["websocket"]});
+    socket.on("updateCoords", function (_0x1B1C8) {
+      minimap.updateNode(_0x1B1C8);
+    });
+    socket.on("receiveMessage", function (_0x1A47F) {
+      chatRoom.receiveMessage(_0x1A47F.sender, _0x1A47F.msg);
+    });
+  };
+  _0x1A4CB.emit = function (_0x1A4DE, _0x1A47F) {
+    socket.emit(_0x1A4DE, _0x1A47F);
+  };
+  _0x1A4CB.joinRoom = function (_0x1A362) {
+    if (_0x1B0E4) {
+      _0x1A4CB.leaveRoom(_0x1B0E4);
+    }
+    ;
+    if ("" != $(".partyToken").val()) {
+      _0x1A4CB.emit("joinRoom", {p: _0x1A362, a: 1});
+      _0x1B0E4 = _0x1A362;
+    }
+  };
+  _0x1A4CB.leaveRoom = function (_0x1B1DB) {
+    _0x1A4CB.emit("leaveRoom", _0x1B1DB);
+  };
+  _0x1A4CB.uploadCoords = function (_0x1A47F) {
+    _0x1A47F.name = myApp.getName();
+    _0x1A47F.serverAddress = myApp.getCurrentPartyCode();
+    _0x1A47F.timeStamp = Date.now();
+    _0x1A47F.socketRoom = _0x1B0E4;
+    _0x1A4CB.emit("coords", _0x1A47F);
+  };
+  _0x1A4CB.sendMessage = function (_0x1B169) {
+    _0x1B169.socketRoom = _0x1B0E4;
+    if ("" != $(".partyToken").val()) {
+      _0x1A4CB.emit("sendMessage", _0x1B169);
+    }
+  };
+}
+function isValidHotKey(_0x1AD54) {
+  return 48 <= _0x1AD54.keyCode && 57 >= _0x1AD54.keyCode || (65 <= _0x1AD54.keyCode && 90 >= _0x1AD54.keyCode || (9 == _0x1AD54.keyCode || 13 == _0x1AD54.keyCode)) ? true : false;
+}
+function getPressedKey(_0x1AD54) {
+  var _0x1B227 = "";
+  return _0x1AD54.ctrlKey && (_0x1B227 += "CTRL_"), _0x1AD54.altKey && (_0x1B227 += "ALT_"), _0x1B227 = 9 == _0x1AD54.keyCode ? _0x1B227 + "TAB" : 13 == _0x1AD54.keyCode ? _0x1B227 + "ENTER" : _0x1B227 + String.fromCharCode(_0x1AD54.keyCode);
+}
+function getHotkeyById(_0x1B214) {
+  var _0x1B201;
+  for (_0x1B201 in hotkeyMapping) {
+    if (hotkeyMapping[_0x1B201] == _0x1B214) {
+      return _0x1B201;
+    }
+  }
+  ;
+  return "";
+}
+function copyToClipboard(_0x1AE5E) {
+  window.postMessage({action: Action.COPY, data: _0x1AE5E}, "*");
+}
+function drawMinimapNodes() {
+  minimap.uploadSelfPosition();
+  setTimeout(drawMinimapNodes, 1e3);
+}
+function updateGameInfoDiv() {
+  if ($("#overlays").is(":visible")) {
+    myApp.updateLBInfo();
+  }
+  ;
+  setTimeout(updateGameInfoDiv, 1e3);
+}
+function clearOldNodesData() {
+  var _0x1A3AE = 1;
+  for (; _0x1A3AE < nodeList.length; _0x1A3AE++) {
+    var _0x1A446 = nodeList[_0x1A3AE][8];
+    if (_0x1A446) {
+      if (5e3 < Date.now() - _0x1A446) {
+        if (2 > _0x1A3AE) {
+          nodeList[_0x1A3AE][2] = null;
+          nodeList[_0x1A3AE][3] = null;
+        } else {
+          nodeList[_0x1A3AE][0] = "del";
+        }
+      }
+    }
+  }
+  ;
+  setTimeout(clearOldNodesData, 5e3);
+}
+var l1lIl = true;
+function updateLbDiv() {
+  if ($("#div_lb").is(":visible")) {
+    var _0x1B56B = getLB();
+    var _0x1ABB2 = getSelfIDs();
+    var _0x1A99E = "";
+    if (_0x1B56B) {
+      var _0x1A3E7 = 0;
+      for (; _0x1A3E7 < _0x1B56B.length; _0x1A3E7++) {
+        var _0x1A4F1 = false;
+        var _0x1A3AE = 0;
+        for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+          if (_0x1ABB2[_0x1A3AE] == _0x1B56B[_0x1A3E7].id) {
+            _0x1A4F1 = true;
+            break;
+          }
+        }
+        ;
+        _0x1A3AE = _0x1B56B[_0x1A3E7].name ? escapeHtml(_0x1B56B[_0x1A3E7].name) : "An unnamed cell";
+        if (l1lIl) {
+          var _0x1A504 = "#FFFFFF";
+          var _0x1A4DE = _0x1A3AE;
+          for (var _0x1ADA0 in ll) {
+            if (_0x1A4DE.startsWith(_0x1ADA0)) {
+              _0x1A504 = ll[_0x1ADA0];
+            }
+          }
+          ;
+          _0x1A99E = _0x1A99E + "<div style='color:" + _0x1A504 + "'>";
+        }
+        ;
+        _0x1A99E = _0x1A4F1 ? _0x1A99E + "<div class='self'>" : _0x1A99E + "<div>";
+        _0x1A99E += _0x1A3E7 + 1 + ". " + _0x1A3AE + "</div>";
+      }
+    }
+    ;
+    document.getElementById("lb_detail").innerHTML = _0x1A99E;
+  }
+  ;
+  setTimeout(updateLbDiv, 1e3);
+}
+function updateScoreDiv() {
+  var _0x1B169 = getHighestScore();
+  var _0x1B30B = getCell();
+  var _0x1B1EE = [];
+  if (0 != _0x1B169) {
+    if (myApp.isShowScroll) {
+      _0x1B1EE.push("Mass: " + ~~(_0x1B169 / 100));
+    }
+    ;
+    if (_0x1B30B) {
+      if (0 < _0x1B30B.length) {
+        if (myApp.isShowSTE) {
+          _0x1B169 = myApp.getSTE(_0x1B30B);
+          _0x1B1EE.push("STE: " + _0x1B169);
+        }
+        ;
+        if (myApp.isShowBallTotal) {
+          _0x1B1EE.push("[" + _0x1B30B.length + "/16]");
+        }
+      }
+    }
+  }
+  ;
+  if (myApp.isShowFPS) {
+    _0x1B30B = getFPS();
+    if (50 >= _0x1B30B) {
+      _0x1B30B += 8;
+    } else {
+      if (45 >= _0x1B30B) {
+        _0x1B30B += 10;
+      } else {
+        if (40 >= _0x1B30B) {
+          _0x1B30B += 15;
+        }
+      }
+    }
+    ;
+    _0x1B1EE.push("FPS: " + _0x1B30B);
+  }
+  ;
+  if (isFreeSpec()) {
+    if (myApp.specTeammate) {
+      if (myApp.isStopMovement) {
+        if (nodeList[myApp.specTeammate]) {
+          _0x1B1EE.push("SPEC: " + nodeList[myApp.specTeammate][1]);
+        }
+      }
+    }
+  }
+  ;
+  if (myApp.testing) {
+    _0x1B1EE.push("*** TESTING ***");
+  }
+  ;
+  if (0 < _0x1B1EE.length) {
+    if (!$("#div_score").is(":visible")) {
+      $("#div_score").show();
+    }
+    ;
+    document.getElementById("div_score").innerHTML = _0x1B1EE.join("&nbsp;&nbsp;&nbsp;").trim();
+  } else {
+    $("#div_score").hide();
+  }
+  ;
+  setTimeout(updateScoreDiv, 500);
+}
+var l1lII = "";
+var l11ll = "";
+var l11l1 = 29;
+var l11lI = 0;
+var l111l = false;
+var l1ll;
+var l1Il = "__";
+l1111 = "en", i18n_dict = {en: {}}, i18n = i18n_dict[l1111];
+var myApp;
+var nodeList = [];
+var chatRoom = null;
+var minimap = null;
+var socket = null;
+var currentIP = "";
+var l111I = "HKG";
+var l11Il = "HKG";
+var l11I1;
+var l11II = false;
+var l1Ill = false;
+var conn = null;
+var l1Il1 = 0;
+var l1l1 = 0;
+var tmpTeamname = "";
+var defaultImage = new Image;
+defaultImage.src = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8Zz4NCgkJPHBhdGggZD0iTTI1Niw0OEMxNDEuMSw0OCw0OCwxNDEuMSw0OCwyNTZzOTMuMSwyMDgsMjA4LDIwOGMxMTQuOSwwLDIwOC05My4xLDIwOC0yMDhTMzcwLjksNDgsMjU2LDQ4eiBNMjU2LDQ0Ni43DQoJCQljLTEwNS4xLDAtMTkwLjctODUuNS0xOTAuNy0xOTAuN2MwLTEwNS4xLDg1LjUtMTkwLjcsMTkwLjctMTkwLjdjMTA1LjEsMCwxOTAuNyw4NS41LDE5MC43LDE5MC43DQoJCQlDNDQ2LjcsMzYxLjEsMzYxLjEsNDQ2LjcsMjU2LDQ0Ni43eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KCTxnPg0KCQk8cGF0aCBkPSJNMjU2LDk2Yy04OC40LDAtMTYwLDcxLjYtMTYwLDE2MGMwLDg4LjQsNzEuNiwxNjAsMTYwLDE2MGM4OC40LDAsMTYwLTcxLjYsMTYwLTE2MEM0MTYsMTY3LjYsMzQ0LjQsOTYsMjU2LDk2eiIvPg0KCTwvZz4NCjwvZz4NCjwvc3ZnPg0K";
+var customSkin = {"http://www.as.com/skins/585cusc.png": defaultImage};
+var l1IlI = "";
+var Action = {COPY: "", IMAGE: "", FINISH: ""};
+var lII = false;
+var hotkeyConfig = {};
+var hotkeyMapping = {};
+var l1I1l = {};
+var lIl1 = {};
+var selectedHotkeyRow;
+var chatCommand = {};
+var l1I11 = true;
+var skinDownloadQueue = [];
+var lI11 = {};
+var toastQueue = [];
+var defaultSkin = "http://i.imgur.com/wEjCcQC.png";
+var l1I1I;
+var l11l = {input_hk_send_msg1: "Need backup!", input_hk_send_msg2: "Need a teammate!", input_hk_send_msg3: "Pop him!", input_hk_send_msg4: "We need to run!", input_hk_send_msg5: "Tricksplit!", input_hk_send_msg6: "Lets bait! ", input_hk_send_msg7: "Split into me!", input_hk_send_msg8: "Feed me!", input_hk_send_msg9: "Tank the virus!", input_hk_send_msg10: "Roger that!"};
+var lIII = {};
+var selected_profile = 0;
+var player_profile = [{name: "Profile 1", team: "Team1", skinurl: defaultSkin}, {name: "Profile 2", team: "Team2", skinurl: "http://i.imgur.com/G3LNELY.png"}, {name: "Profile 3", team: "Team3", skinurl: "http://i.imgur.com/uBFwIaM.png"}, {name: "Profile 4", team: "Team4", skinurl: "http://i.imgur.com/TgPwRgi.png"}, {name: "Profile 5", team: "Team5", skinurl: "http://i.imgur.com/wdTf1ar.png"}, {name: "Profile 6", team: "Team6", skinurl: "http://i.imgur.com/6v5CW9o.png"}, {name: "Profile 7", team: "Team7", skinurl: "http://i.imgur.com/dUIb9IX.png"}, {name: "Profile 8", team: "Team8", skinurl: "http://i.imgur.com/KHbSM1M.png"}, {name: "Profile 9", team: "Team9", skinurl: "http://i.imgur.com/JAhcafF.png"}, {name: "Profile 10", team: "Team10", skinurl: "http://i.imgur.com/Tq51zqx.png"}];
+myApp = new MyApp, myApp.init();
+var l1IIl = {};
+var l1II1 = {};
+var l1III = false;
+!function (_0x1A4CB, _0x1A517) {
+  function _0x1A52A() {
+    _0x1A06A = true;
+    _0x19E1D = _0x19E0A = document.getElementById("canvas");
+    document.getElementById("overlays2").onmousemove = function (_0x1AD54) {
+      _0x1A4A5 = _0x1AD54.clientX;
+      _0x1A4B8 = _0x1AD54.clientY;
+      _0x1A576();
+    };
+    _0x1A388 = _0x19E1D.getContext("2d");
+    if (/firefox/i.test(navigator.userAgent)) {
+      document.addEventListener("DOMMouseScroll", _0x1A53D, false);
+    } else {
+      document.body.onmousewheel = _0x1A53D;
+    }
+    ;
+    var _0x1AD2E = false;
+    var _0x1A39B = false;
+    var _0x1AD41 = false;
+    _0x1A4CB.onkeydown = function (_0x1AD67) {
+      if (32 == _0x1AD67.keyCode) {
+        if (!chatRoom.isFocus()) {
+          if (!_0x1AD2E) {
+            _0x1A6B9();
+            _0x1A718(17);
+            _0x1AD2E = true;
+          }
+        }
+      }
+      ;
+      if (81 == _0x1AD67.keyCode) {
+        if (!_0x1A39B) {
+          _0x1A718(18);
+          _0x1A39B = true;
+        }
+      }
+      ;
+      if (87 == _0x1AD67.keyCode) {
+        if (!chatRoom.isFocus()) {
+          if (!_0x1AD41) {
+            _0x1A6B9();
+            _0x1A718(21);
+            _0x1AD41 = true;
+          }
+        }
+      }
+      ;
+      if (lII && !$("#overlays").is(":visible") || l1ll) {
+        if (27 == _0x1AD67.keyCode) {
+          _0x1AD67.preventDefault();
+          _0x1A5AF(300);
+        }
+      } else {
+        if (27 == _0x1AD67.keyCode) {
+          _0x1AD67.preventDefault();
+          $(".btn-play").trigger("click");
+        }
+      }
+    };
+    _0x1A4CB.onkeyup = function (_0x1AD67) {
+      if (32 == _0x1AD67.keyCode) {
+        _0x1AD2E = false;
+      }
+      ;
+      if (87 == _0x1AD67.keyCode) {
+        _0x1AD41 = false;
+      }
+      ;
+      if (81 == _0x1AD67.keyCode) {
+        if (_0x1A39B) {
+          _0x1A718(19);
+          _0x1A39B = false;
+        }
+      }
+    };
+    _0x1A4CB.onblur = function () {
+      _0x1A718(19);
+      _0x1AD41 = _0x1A39B = _0x1AD2E = false;
+    };
+    _0x1A4CB.onresize = _0x1A73E;
+    _0x1A4CB.requestAnimationFrame(_0x1A2A4);
+    setInterval(_0x1A6B9, 42);
+    if (_0x1A362) {
+      _0x1A517("#region").val(_0x1A362);
+    }
+    ;
+    _0x1A5D5();
+    _0x1A59C(_0x1A517("#region").val());
+    if (0 == _0x1A128) {
+      if (_0x1A362) {
+        _0x1A5FB();
+      }
+    }
+    ;
+    _0x1A5AF(0);
+    _0x1A73E();
+    if (_0x1A4CB.location.hash) {
+      if (6 <= _0x1A4CB.location.hash.length) {
+        _0x19D4C(_0x1A4CB.location.hash);
+      }
+    }
+  }
+  function _0x1A53D(_0x1AD67) {
+    if (myApp.isEnableZoom) {
+      _0x1A0EF *= Math.pow(myApp.getZoomSpeed(), _0x1AD67.wheelDelta / -120 || (_0x1AD67.detail || 0));
+      if (myApp.getZoomLimit() > _0x1A0EF) {
+        _0x1A0EF = myApp.getZoomLimit();
+      }
+      ;
+      if (_0x1A0EF > 1 / _0x19F99) {
+        _0x1A0EF = 1 / _0x19F99;
+      }
+    }
+  }
+  function _0x1A550(_0x1A3C1) {
+    var _0x1A85B = null;
+    if (0 < _0x19DE4.playerCells().length) {
+      _0x1A85B = _0x19DE4.playerCells()[0];
+      _0x1A85B = _0x1A85B.name + _0x1A85B.color;
+    }
+    ;
+    var _0x1AD7A = $("#skinurl").val();
+    if (-1 != _0x1AD7A.indexOf("!!")) {
+      try {
+        atob(_0x1AD7A.slice(2));
+      } catch (_0x1A3AE) {}
+    }
+    ;
+    return {displayName: _0x1A517("#nick").val(), action: _0x1A3C1, socketRoom: myApp.getRoom(), identifier: _0x1A85B, url: myApp.getCustomSkinUrl(), nick: _0x1A517("#nick").val(), team: _0x1A517("#team_name").val(), token: myApp.getCurrentPartyCode()};
+  }
+  function _0x1A563() {
+    if (!l1III) {
+      if (0 < _0x19DE4.playerCells().length) {
+        l1III = true;
+        var _0x1A47F = _0x1A550("join");
+        l1IIl[_0x1A47F.identifier] = _0x1A47F;
+        l1II1[_0x1A47F.nick] = _0x1A47F;
+        conn.emit("playerEntered", _0x1A47F);
+      } else {
+        setTimeout(_0x1A563, 100);
+      }
+    }
+  }
+  function _0x1A576() {
+    if (myApp.isStopMovement) {
+      _0x19EDB = _0x1A01E;
+      _0x1A446 = _0x1A031;
+    } else {
+      _0x19EDB = (_0x1A4A5 - _0x19DAB / 2) / _0x19F99 + _0x19E69;
+      _0x1A446 = (_0x1A4B8 - _0x19E30 / 2) / _0x19F99 + _0x19E7C;
+    }
+  }
+  function _0x1A589() {
+    _0x1A517("#overlays").hide();
+    _0x1A517("#stats").hide();
+    _0x1A329 = _0x1A115 = false;
+    _0x1A5D5();
+  }
+  function _0x1A59C(_0x1A47F) {
+    if ("gathering" == _0x1A517("#region").val()) {
+      next(l1Il, "");
+    } else {}
+  }
+  function _0x1A5AF(_0x1AD8D) {
+    if (!_0x1A115) {
+      if (!_0x1A329) {
+        _0x1A3FA = null;
+        if (1e3 > _0x1AD8D) {
+          _0x1A102 = 1;
+        }
+        ;
+        _0x1A115 = true;
+        _0x1A517("#mainPanel").show();
+        _0x1A517("#overlays").show();
+      }
+    }
+  }
+  function _0x1A5C2(_0x1A362) {
+    _0x1A517("#helloContainer").attr("data-gamemode", _0x1A362);
+    _0x1A459 = _0x1A362;
+    _0x1A517("#gamemode").val(_0x1A362);
+  }
+  function _0x1A5D5() {}
+  function _0x1A5FB() {
+    if (_0x1A06A) {
+      if (_0x1A362) {
+        _0x1A517("#connecting").show();
+        next();
+      }
+    }
+  }
+  function _0x1A60E(_0x1ADB3, _0x1A3E7) {
+    if (currentIP = _0x1ADB3, _0x19E56) {
+      _0x19E56.onopen = null;
+      _0x19E56.onmessage = null;
+      _0x19E56.onclose = null;
+      try {
+        _0x19E56.close();
+      } catch (o) {}
+      ;
+      _0x19E56 = null;
+    }
+    ;
+    if (_0x1A13B.ip && (_0x1ADB3 = "ws://" + _0x1A13B.ip), null != _0x1A20C) {
+      var _0x1A433 = _0x1A20C;
+      _0x1A20C = function () {
+        _0x1A433(_0x1A3E7);
+      };
+    }
+    ;
+    _0x1A7B0 = [];
+    _0x1A47F = [];
+    _0x19E8F = {};
+    _0x19EA2 = [];
+    _0x19EB5 = [];
+    _0x19EC8 = [];
+    _0x1A26B = _0x1A057 = null;
+    _0x19FF8 = 0;
+    _0x1A0C9 = false;
+    _0x19E56 = new WebSocket(_0x1ADB3);
+    window.webSocket = _0x19E56;
+    _0x19E56.binaryType = "arraybuffer";
+    _0x19E56.onopen = function () {
+      var _0x1A894;
+      _0x1A894 = _0x1A621(5);
+      _0x1A894.setUint8(0, 254);
+      _0x1A894.setUint32(1, 5, true);
+      _0x1A634(_0x1A894);
+      _0x1A894 = _0x1A621(5);
+      _0x1A894.setUint8(0, 255);
+      _0x1A894.setUint32(1, 154669603, true);
+      _0x1A634(_0x1A894);
+    };
+    _0x19E56.onmessage = _0x1A65A;
+    _0x19E56.onclose = _0x1A647;
+    _0x19E56.onerror = function () {};
+  }
+  function _0x1A621(_0x1ADC6) {
+    return new DataView(new ArrayBuffer(_0x1ADC6));
+  }
+  function _0x1A634(_0x1AB66) {
+    _0x1A19A++;
+    _0x19E56.send(_0x1AB66.buffer);
+  }
+  function _0x1A647() {
+    if (_0x1A0C9) {
+      _0x1A21F = 500;
+    }
+    ;
+    connectionerror();
+    console.log("socket close");
+    setTimeout(_0x1A5FB, _0x1A21F);
+    _0x1A21F *= 2;
+  }
+  function _0x1A65A(_0x1A3E7) {
+    _0x1A66D(new DataView(_0x1A3E7.data));
+  }
+  function _0x1A66D(_0x1ADD9) {
+    function _0x1A621() {
+      var _0x1A99E = "";
+      for (;;) {
+        var _0x1A3FA = _0x1ADD9.getUint16(_0x1AD08, true);
+        if (_0x1AD08 += 2, 0 == _0x1A3FA) {
+          break;
+        }
+        ;
+        _0x1A99E += String.fromCharCode(_0x1A3FA);
+      }
+      ;
+      return _0x1A99E;
+    }
+    _0x1A187++;
+    var _0x1AD08 = 0;
+    switch (240 == _0x1ADD9.getUint8(_0x1AD08) && (_0x1AD08 += 5), _0x1ADD9.getUint8(_0x1AD08++)) {
+      case 16:
+        _0x1A680(_0x1ADD9, _0x1AD08);
+        break;
+      case 17:
+        _0x1A01E = _0x1ADD9.getFloat32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        _0x1A031 = _0x1ADD9.getFloat32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        var _0x1A504 = _0x1ADD9.getFloat32(_0x1AD08, true);
+        _0x1A174 = _0x1A504;
+        if (!myApp.isEnableLockZoom) {
+          _0x1A044 = _0x1A504;
+        }
+        ;
+        _0x1AD08 += 4;
+        break;
+      case 18:
+        _0x1A7B0 = [];
+        _0x1A47F = [];
+        _0x19E8F = {};
+        _0x19EA2 = [];
+        break;
+      case 20:
+        _0x1A47F = [];
+        _0x1A7B0 = [];
+        break;
+      case 21:
+        _0x1A40D = _0x1ADD9.getInt16(_0x1AD08, true);
+        _0x1AD08 += 2;
+        _0x1A693 = _0x1ADD9.getInt16(_0x1AD08, true);
+        _0x1AD08 += 2;
+        if (!_0x1A07D) {
+          _0x1A07D = true;
+          _0x1A420 = _0x1A40D;
+          _0x1A39B = _0x1A693;
+        }
+        ;
+        break;
+      case 32:
+        _0x1A7B0.push(_0x1ADD9.getUint32(_0x1AD08, true));
+        _0x1AD08 += 4;
+        break;
+      case 49:
+        if (null != _0x1A057) {
+          break;
+        }
+        ;
+        _0x1A504 = _0x1ADD9.getUint32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        _0x19EC8 = [];
+        var _0x1ADEC = 0;
+        for (; _0x1A504 > _0x1ADEC; ++_0x1ADEC) {
+          var _0x1ADFF = _0x1ADD9.getUint32(_0x1AD08, true);
+          _0x1AD08 += 4;
+          _0x19EC8.push({id: _0x1ADFF, name: _0x1A621()});
+        }
+        ;
+        break;
+      case 50:
+        _0x1A057 = [];
+        _0x1A504 = _0x1ADD9.getUint32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        _0x1ADEC = 0;
+        for (; _0x1A504 > _0x1ADEC; ++_0x1ADEC) {
+          _0x1A057.push(_0x1ADD9.getFloat32(_0x1AD08, true));
+          _0x1AD08 += 4;
+        }
+        ;
+        _0x1A7C3();
+        break;
+      case 64:
+        _0x1A504 = _0x1ADD9.getFloat64(_0x1AD08, true);
+        _0x1AD08 += 8;
+        _0x1ADEC = _0x1ADD9.getFloat64(_0x1AD08, true);
+        _0x1AD08 += 8;
+        _0x1ADFF = _0x1ADD9.getFloat64(_0x1AD08, true);
+        _0x1AD08 += 8;
+        var _0x1AE12 = _0x1ADD9.getFloat64(_0x1AD08, true);
+        _0x1AD08 += 8;
+        if (0.01 > _0x1ADFF - _0x1A504 - (_0x1AE12 - _0x1ADEC) && _0x1ADFF - _0x1A504 - (_0x1AE12 - _0x1ADEC) > -0.01) {
+          _0x19F14 = _0x1A504;
+          _0x19F27 = _0x1ADEC;
+          _0x1A4F1 = _0x1ADFF;
+          _0x19F3A = _0x1AE12;
+        } else {
+          if (0.01 > _0x1A504 - _0x19F4D && _0x1A504 - _0x19F4D > -0.01) {
+            if (_0x1ADFF - _0x19F73 > 0.01 || -0.01 > _0x1ADFF - _0x19F73) {
+              _0x19F14 = _0x1A504;
+              _0x1A4F1 = _0x1A504 + 14142.135623730952;
+            }
+          }
+          ;
+          if (_0x1A504 - _0x19F4D > 0.01 || -0.01 > _0x1A504 - _0x19F4D) {
+            if (0.01 > _0x1ADFF - _0x19F73 && _0x1ADFF - _0x19F73 > -0.01) {
+              _0x1A4F1 = _0x1ADFF;
+              _0x19F14 = _0x1ADFF - 14142.135623730952;
+            }
+          }
+          ;
+          if (_0x1ADEC - _0x19F60 > 0.01 || -0.01 > _0x1ADEC - _0x19F60) {
+            if (0.01 > _0x1AE12 - _0x19F86 && _0x1AE12 - _0x19F86 > -0.01) {
+              _0x19F3A = _0x1AE12;
+              _0x19F27 = _0x1AE12 - 14142.135623730952;
+            }
+          }
+          ;
+          if (0.01 > _0x1ADEC - _0x19F60 && _0x1ADEC - _0x19F60 > -0.01) {
+            if (_0x1AE12 - _0x19F86 > 0.01 || -0.01 > _0x1AE12 - _0x19F86) {
+              _0x19F27 = _0x1ADEC;
+              _0x19F3A = _0x1ADEC + 14142.135623730952;
+            }
+          }
+          ;
+          if (_0x19F14 > _0x1A504) {
+            _0x19F14 = _0x1A504;
+            _0x1A4F1 = _0x1A504 + 14142.135623730952;
+          }
+          ;
+          if (_0x1ADFF > _0x1A4F1) {
+            _0x1A4F1 = _0x1ADFF;
+            _0x19F14 = _0x1ADFF - 14142.135623730952;
+          }
+          ;
+          if (_0x19F27 > _0x1ADEC) {
+            _0x19F27 = _0x1ADEC;
+            _0x19F3A = _0x1ADEC + 14142.135623730952;
+          }
+          ;
+          if (_0x1AE12 > _0x19F3A) {
+            _0x19F3A = _0x1AE12;
+            _0x19F27 = _0x1AE12 - 14142.135623730952;
+          }
+          ;
+          _0x19F4D = _0x1A504;
+          _0x19F60 = _0x1ADEC;
+          _0x19F86 = _0x1AE12;
+          _0x19F73 = _0x1ADFF;
+        }
+        ;
+        myApp.afterGameLoaded();
+        break;
+      case 81:
+        var _0x1AE25 = _0x1ADD9.getUint32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        var _0x1AE38 = _0x1ADD9.getUint32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        var _0x1A459 = _0x1ADD9.getUint32(_0x1AD08, true);
+        _0x1AD08 += 4;
+        setTimeout(function () {
+          _0x19D00({d: _0x1AE25, e: _0x1AE38, c: _0x1A459});
+        }, 1200);
+    }
+  }
+  function _0x1A680(_0x1ADD9, _0x1AD08) {
+    function _0x1AE71() {
+      var _0x1A99E = "";
+      for (;;) {
+        var _0x1A3FA = _0x1ADD9.getUint16(_0x1AD08, true);
+        if (_0x1AD08 += 2, 0 == _0x1A3FA) {
+          break;
+        }
+        ;
+        _0x1A99E += String.fromCharCode(_0x1A3FA);
+      }
+      ;
+      return _0x1A99E;
+    }
+    function _0x1AE84() {
+      var _0x1A99E = "";
+      for (;;) {
+        var _0x1A3FA = _0x1ADD9.getUint8(_0x1AD08++);
+        if (0 == _0x1A3FA) {
+          break;
+        }
+        ;
+        _0x1A99E += String.fromCharCode(_0x1A3FA);
+      }
+      ;
+      return _0x1A99E;
+    }
+    _0x1A0DC = _0x1A492 = Date.now();
+    if (!_0x1A0C9) {
+      _0x1A0C9 = true;
+      _0x1A6A6();
+    }
+    ;
+    _0x19FE5 = false;
+    var _0x1AB53 = _0x1ADD9.getUint16(_0x1AD08, true);
+    _0x1AD08 += 2;
+    var _0x1ADA0 = 0;
+    for (; _0x1AB53 > _0x1ADA0; ++_0x1ADA0) {
+      var _0x1A420 = _0x19E8F[_0x1ADD9.getUint32(_0x1AD08, true)];
+      var _0x1AE4B = _0x19E8F[_0x1ADD9.getUint32(_0x1AD08 + 4, true)];
+      _0x1AD08 += 8;
+      if (_0x1A420) {
+        if (_0x1AE4B) {
+          _0x1AE4B.R();
+          _0x1AE4B.o = _0x1AE4B.x;
+          _0x1AE4B.p = _0x1AE4B.y;
+          _0x1AE4B.n = _0x1AE4B.size;
+          _0x1AE4B.C = _0x1A420.x;
+          _0x1AE4B.D = _0x1A420.y;
+          _0x1AE4B.m = _0x1AE4B.size;
+          _0x1AE4B.K = _0x1A492;
+          _0x19D5F(_0x1A420, _0x1AE4B);
+        }
+      }
+    }
+    ;
+    _0x1ADA0 = 0;
+    for (; _0x1AB53 = _0x1ADD9.getUint32(_0x1AD08, true), _0x1AD08 += 4, 0 != _0x1AB53;) {
+      ++_0x1ADA0;
+      var _0x1A693;
+      _0x1A420 = _0x1ADD9.getInt32(_0x1AD08, true);
+      _0x1AD08 += 4;
+      _0x1AE4B = _0x1ADD9.getInt32(_0x1AD08, true);
+      _0x1AD08 += 4;
+      _0x1A693 = _0x1ADD9.getInt16(_0x1AD08, true);
+      _0x1AD08 += 2;
+      var _0x1AE97 = _0x1ADD9.getUint8(_0x1AD08++);
+      var _0x1A362 = _0x1ADD9.getUint8(_0x1AD08++);
+      var _0x1AEAA = _0x1ADD9.getUint8(_0x1AD08++);
+      _0x1A362 = _0x1A80F(_0x1AE97 << 16 | _0x1A362 << 8 | _0x1AEAA);
+      _0x1AEAA = _0x1ADD9.getUint8(_0x1AD08++);
+      var _0x1AE5E = !!(1 & _0x1AEAA);
+      var _0x1ACA9 = !!(16 & _0x1AEAA);
+      var _0x1AEBD = null;
+      if (2 & _0x1AEAA) {
+        _0x1AD08 += 4 + _0x1ADD9.getUint32(_0x1AD08, true);
+      }
+      ;
+      if (4 & _0x1AEAA) {
+        _0x1AEBD = _0x1AE84();
+      }
+      ;
+      var _0x1AED0 = _0x1AE71();
+      _0x1AE97 = null;
+      if (_0x19E8F.hasOwnProperty(_0x1AB53)) {
+        _0x1AE97 = _0x19E8F[_0x1AB53];
+        _0x1AE97.J();
+        _0x1AE97.o = _0x1AE97.x;
+        _0x1AE97.p = _0x1AE97.y;
+        _0x1AE97.n = _0x1AE97.size;
+        _0x1AE97.color = _0x1A362;
+      } else {
+        _0x1AE97 = new _0x1A7E9(_0x1AB53, _0x1A420, _0x1AE4B, _0x1A693, _0x1A362, _0x1AED0);
+        _0x19EA2.push(_0x1AE97);
+        _0x19E8F[_0x1AB53] = _0x1AE97;
+        _0x1AE97.ia = _0x1A420;
+        _0x1AE97.ja = _0x1AE4B;
+      }
+      ;
+      _0x1AE97.f = _0x1AE5E;
+      _0x1AE97.j = _0x1ACA9;
+      _0x1AE97.C = _0x1A420;
+      _0x1AE97.D = _0x1AE4B;
+      _0x1AE97.m = _0x1A693;
+      _0x1AE97.K = _0x1A492;
+      _0x1AE97.T = _0x1AEAA;
+      if (_0x1AEBD) {
+        _0x1AE97.V = _0x1AEBD;
+      }
+      ;
+      if (_0x1AED0) {
+        _0x1AE97.t(_0x1AED0);
+      }
+      ;
+      if (-1 != _0x1A7B0.indexOf(_0x1AB53)) {
+        if (-1 == _0x1A47F.indexOf(_0x1AE97)) {
+          _0x1A47F.push(_0x1AE97);
+          if (1 == _0x1A47F.length) {
+            _0x19E69 = _0x1AE97.x;
+            _0x19E7C = _0x1AE97.y;
+            _0x1A2F0();
+            document.getElementById("overlays").style.display = "none";
+            _0x1A3E7 = [];
+            _0x1A316 = 0;
+            _0x1A504 = _0x1A47F[0].color;
+            _0x1A33C = true;
+            _0x19DD1 = Date.now();
+            _0x1A822 = _0x1A34F = _0x1A4DE = 0;
+          }
+        }
+      }
+    }
+    ;
+    _0x1A420 = _0x1ADD9.getUint32(_0x1AD08, true);
+    _0x1AD08 += 4;
+    _0x1ADA0 = 0;
+    for (; _0x1A420 > _0x1ADA0; _0x1ADA0++) {
+      _0x1AB53 = _0x1ADD9.getUint32(_0x1AD08, true);
+      _0x1AD08 += 4;
+      _0x1AE97 = _0x19E8F[_0x1AB53];
+      if (null != _0x1AE97) {
+        _0x1AE97.R();
+      }
+    }
+    ;
+    if (_0x19FE5) {
+      if (0 == _0x1A47F.length) {
+        myApp.onDead();
+        _0x19DBE = Date.now();
+        _0x1A33C = false;
+        if (!_0x1A115) {
+          if (!_0x1A329) {
+            if (_0x1A375) {
+              _0x19D98();
+              _0x1A329 = true;
+              _0x1A517("#overlays").show();
+              _0x1A517("#stats").show();
+            } else {
+              _0x1A5AF(1500);
+            }
+          }
+        }
+      }
+    }
+  }
+  function _0x1A6A6() {
+    _0x1A291 = "";
+    _0x1A517("#connecting").hide();
+    _0x1A6F2();
+    if (_0x1A20C) {
+      _0x1A20C();
+      _0x1A20C = null;
+    }
+    ;
+    if (null != _0x1A232) {
+      clearTimeout(_0x1A232);
+    }
+    ;
+    _0x1A232 = setTimeout(function () {
+      if (_0x1A4CB.ga) {
+        ++_0x1A3D4;
+        _0x1A4CB.ga("set", "dimension2", _0x1A3D4);
+      }
+    }, 1e4);
+  }
+  function _0x1A6B9() {
+    if (!myApp.isStopMovement && (null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN)) {
+      var _0x1AEE3 = _0x1A4A5 - _0x19DAB / 2;
+      var _0x1AEF6 = _0x1A4B8 - _0x19E30 / 2;
+      if (!(64 > _0x1AEE3 * _0x1AEE3 + _0x1AEF6 * _0x1AEF6)) {
+        if (!(0.01 > Math.abs(_0x1A245 - _0x19EDB) && 0.01 > Math.abs(_0x1A258 - _0x1A446))) {
+          _0x1A245 = _0x19EDB;
+          _0x1A258 = _0x1A446;
+          _0x1AEE3 = _0x1A621(13);
+          _0x1AEE3.setUint8(0, 16);
+          _0x1AEE3.setInt32(1, _0x19EDB, true);
+          _0x1AEE3.setInt32(5, _0x1A446, true);
+          _0x1AEE3.setUint32(9, 0, true);
+          _0x1A634(_0x1AEE3);
+        }
+      }
+    }
+  }
+  function _0x1A6F2() {
+    if (null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN && (_0x1A0C9 && null != _0x1A3FA)) {
+      var _0x1A894 = _0x1A621(1 + 2 * _0x1A3FA.length);
+      _0x1A894.setUint8(0, 0);
+      var _0x1AF1C = 0;
+      for (; _0x1AF1C < _0x1A3FA.length; ++_0x1AF1C) {
+        _0x1A894.setUint16(1 + 2 * _0x1AF1C, _0x1A3FA.charCodeAt(_0x1AF1C), true);
+      }
+      ;
+      _0x1A634(_0x1A894);
+      _0x1A3FA = null;
+    }
+  }
+  function _0x1A718(_0x1ADC6) {
+    if (null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN) {
+      var _0x1A894 = _0x1A621(1);
+      _0x1A894.setUint8(0, _0x1ADC6);
+      _0x1A634(_0x1A894);
+    }
+  }
+  function _0x1A72B() {
+    if (null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN && null != window.userToken) {
+      var _0x1A894 = _0x1A621(2 + userToken.length);
+      _0x1A894.setUint8(0, 82);
+      _0x1A894.setUint8(1, 1);
+      var _0x1A3AE = 0;
+      for (; _0x1A3AE < window.userToken.length; ++_0x1A3AE) {
+        _0x1A894.setUint8(_0x1A3AE + 2, window.userToken.charCodeAt(_0x1A3AE));
+      }
+      ;
+      _0x1A634(_0x1A894);
+    }
+  }
+  function _0x1A73E() {
+    _0x19DAB = 1 * _0x1A4CB.innerWidth;
+    _0x19E30 = 1 * _0x1A4CB.innerHeight;
+    _0x19E0A.width = _0x19E1D.width = _0x19DAB;
+    _0x19E0A.height = _0x19E1D.height = _0x19E30;
+    var _0x1AF2F = _0x1A517("#helloContainer");
+    _0x1AF2F.css("transform", "none");
+    var _0x1A3FA = _0x1AF2F.height();
+    var _0x1A3E7 = _0x1A4CB.innerHeight;
+    _0x1A777();
+  }
+  function _0x1A764() {
+    if (0 != _0x1A47F.length) {
+      if (myApp.isEnableLockZoom) {
+        _0x1AD08 = 1 * Math.max(_0x19E30 / 1080, _0x19DAB / 1920) * _0x1A0EF;
+      } else {
+        var _0x1AD08 = 0;
+        var _0x1A3AE = 0;
+        for (; _0x1A3AE < _0x1A47F.length; _0x1A3AE++) {
+          _0x1AD08 += _0x1A47F[_0x1A3AE].size;
+        }
+        ;
+        _0x1AD08 = Math.pow(Math.min(64 / _0x1AD08, 1), 0.4) * (1 * Math.max(_0x19E30 / 1080, _0x19DAB / 1920) * _0x1A0EF);
+      }
+      ;
+      _0x19F99 = (9 * _0x19F99 + _0x1AD08) / 10;
+    }
+  }
+  function _0x1A777() {
+    var _0x1ACA9;
+    var _0x1A978 = Date.now();
+    if (++_0x19EEE, _0x1A492 = _0x1A978, 0 < _0x1A47F.length) {
+      _0x1A764();
+      var _0x1AF42 = _0x1ACA9 = 0;
+      var _0x1A291 = 0;
+      for (; _0x1A291 < _0x1A47F.length; _0x1A291++) {
+        _0x1A47F[_0x1A291].J();
+        _0x1ACA9 += _0x1A47F[_0x1A291].x / _0x1A47F.length;
+        _0x1AF42 += _0x1A47F[_0x1A291].y / _0x1A47F.length;
+      }
+      ;
+      _0x1A01E = _0x1ACA9;
+      _0x1A031 = _0x1AF42;
+      _0x1A044 = _0x19F99;
+      if (myApp.testing) {
+        _0x19E69 = (l11l1 * _0x19E69 + _0x1A01E) / (l11l1 + 1);
+        _0x19E7C = (l11l1 * _0x19E7C + _0x1A031) / (l11l1 + 1);
+        console.log(l11l1 + 1);
+      } else {
+        _0x19E69 = (_0x19E69 + _0x1ACA9) / 2;
+        _0x19E7C = (_0x19E7C + _0x1AF42) / 2;
+      }
+    } else {
+      _0x19E69 = (29 * _0x19E69 + _0x1A01E) / 30;
+      _0x19E7C = (29 * _0x19E7C + _0x1A031) / 30;
+      _0x19F99 = (9 * _0x19F99 + _0x1A044 * (1 * Math.max(_0x19E30 / 1080, _0x19DAB / 1920) * _0x1A0EF)) / 10;
+    }
+    ;
+    _0x19E43 = null;
+    _0x1A576();
+    if (!_0x1A0B6) {
+      _0x1A388.clearRect(0, 0, _0x19DAB, _0x19E30);
+    }
+    ;
+    if (_0x1A0B6) {
+      _0x1A388.fillStyle = _0x1A7FC ? "#111111" : "#F2FBFF";
+      _0x1A388.globalAlpha = 0.05;
+      _0x1A388.fillRect(0, 0, _0x19DAB, _0x19E30);
+      _0x1A388.globalAlpha = 1;
+    } else {
+      _0x1A78A();
+    }
+    ;
+    _0x19EA2.sort(function (_0x1A3E7, _0x1A3FA) {
+      return _0x1A3E7.size == _0x1A3FA.size ? _0x1A3E7.id - _0x1A3FA.id : _0x1A3E7.size - _0x1A3FA.size;
+    });
+    _0x1A388.save();
+    _0x1A388.translate(_0x19DAB / 2, _0x19E30 / 2);
+    _0x1A388.scale(_0x19F99, _0x19F99);
+    _0x1A388.translate(-_0x19E69, -_0x19E7C);
+    _0x1ACA9 = [_0x19F14, _0x19F27, _0x1A4F1, _0x19F3A];
+    _0x19D26(_0x1ACA9, _0x1A388);
+    if (myApp.isEnableMapGrid) {
+      _0x19D39(_0x1ACA9, _0x1A388);
+    }
+    ;
+    _0x1A291 = 0;
+    for (; _0x1A291 < _0x19EB5.length; _0x1A291++) {
+      _0x19EB5[_0x1A291].s(_0x1A388);
+    }
+    ;
+    _0x1A291 = 0;
+    for (; _0x1A291 < _0x19EA2.length; _0x1A291++) {
+      _0x19EA2[_0x1A291].s(_0x1A388);
+    }
+    ;
+    if (0 < _0x1A1C0.length) {
+      _0x1A388.fillStyle = "#c3c3c3";
+      _0x1A388.beginPath();
+      _0x1ACA9 = 0;
+      for (; _0x1ACA9 < _0x1A1C0.length; _0x1ACA9++) {
+        _0x1AF42 = _0x1A1C0[_0x1ACA9];
+        _0x1A388.moveTo(_0x1AF42.x, _0x1AF42.y);
+        _0x1A388.arc(_0x1AF42.x, _0x1AF42.y, _0x1AF42.size + 5, 0, _0x1A161, false);
+      }
+      ;
+      _0x1A388.fill();
+      _0x1A1C0 = [];
+    }
+    ;
+    if (_0x1A47F.length && myApp.isEnableSplitInd) {
+      _0x1A388.globalAlpha = 0.7;
+      _0x1AF42 = ~~Math.min(5 / _0x19F99, 50);
+      _0x1A388.lineWidth = _0x1AF42;
+      _0x1A291 = [];
+      _0x1ACA9 = 0;
+      for (; _0x1ACA9 < _0x1A47F.length; _0x1ACA9++) {
+        _0x1A291.push({x: _0x1A47F[_0x1ACA9].x, y: _0x1A47F[_0x1ACA9].y, size: _0x1A47F[_0x1ACA9].size});
+      }
+      ;
+      _0x1A291.sort(function (_0x1A3E7, _0x1A3FA) {
+        return _0x1A3E7.size - _0x1A3FA.size;
+      });
+      _0x1ACA9 = 0;
+      for (; _0x1ACA9 < _0x1A6DF.length; _0x1ACA9++) {
+        var _0x1ABC5 = _0x1A6DF[_0x1ACA9].size * _0x1A6DF[_0x1ACA9].size;
+        var _0x1A3AE = 0;
+        for (; _0x1A3AE < _0x1A291.length; _0x1A3AE++) {
+          var _0x1A9FD = _0x1A291[_0x1A3AE].size * _0x1A291[_0x1A3AE].size;
+          var _0x1AA10 = Math.sqrt(Math.pow(_0x1A291[_0x1A3AE].x - _0x1A6DF[_0x1ACA9].x, 2) + Math.pow(_0x1A291[_0x1A3AE].y - _0x1A6DF[_0x1ACA9].y, 2));
+          var _0x1AF55 = _0x1A291[_0x1A3AE].size + 655;
+          var _0x1A3FA = _0x1A6DF[_0x1ACA9].size + 655;
+          if (4 >= _0x1A291.length && (0.375 * _0x1A9FD * 0.37 > _0x1ABC5 && 2 * _0x1AF55 - 10 > _0x1AA10)) {
+            _0x1A6DF[_0x1ACA9].type = 4;
+            break;
+          }
+          ;
+          if (8 >= _0x1A291.length && (0.37 * _0x1A9FD > _0x1ABC5 && _0x1AF55 > _0x1AA10)) {
+            _0x1A6DF[_0x1ACA9].type = 2;
+            break;
+          }
+          ;
+          if (0.73 * _0x1A9FD > _0x1ABC5 && _0x1AF55 > _0x1AA10) {
+            _0x1A6DF[_0x1ACA9].type = 1;
+            break;
+          }
+          ;
+          if (0.37 * _0x1ABC5 > _0x1A9FD && _0x1A3FA > _0x1AA10) {
+            _0x1A6DF[_0x1ACA9].type = -2;
+            break;
+          }
+          ;
+          if (0.73 * _0x1ABC5 > _0x1A9FD && _0x1A3FA > _0x1AA10) {
+            _0x1A6DF[_0x1ACA9].type = -1;
+            break;
+          }
+        }
+      }
+      ;
+      _0x1A291 = 0;
+      for (; _0x1A291 < _0x1A1D3.length; _0x1A291++) {
+        _0x1A388.strokeStyle = _0x1A1D3[_0x1A291].color;
+        _0x1A388.beginPath();
+        _0x1ACA9 = 0;
+        for (; _0x1ACA9 < _0x1A6DF.length; _0x1ACA9++) {
+          if (_0x1A6DF[_0x1ACA9].type) {
+            if (_0x1A6DF[_0x1ACA9].type == _0x1A1D3[_0x1A291].type) {
+              _0x1ABC5 = _0x1A6DF[_0x1ACA9].size + _0x1AF42 + 8 + 2 / _0x19F99;
+              _0x1A388.moveTo(_0x1A6DF[_0x1ACA9].x + _0x1ABC5, _0x1A6DF[_0x1ACA9].y);
+              _0x1A388.arc(_0x1A6DF[_0x1ACA9].x, _0x1A6DF[_0x1ACA9].y, _0x1ABC5, 0, _0x1A161, false);
+            }
+          }
+        }
+        ;
+        _0x1A388.stroke();
+      }
+    }
+    ;
+    if (_0x1A6DF = [], _0x1A07D) {
+      _0x1A420 = (3 * _0x1A420 + _0x1A40D) / 4;
+      _0x1A39B = (3 * _0x1A39B + _0x1A693) / 4;
+      _0x1A388.save();
+      _0x1A388.strokeStyle = "#FFAAAA";
+      _0x1A388.lineWidth = 10;
+      _0x1A388.lineCap = "round";
+      _0x1A388.lineJoin = "round";
+      _0x1A388.globalAlpha = 0.5;
+      _0x1A388.beginPath();
+      _0x1A291 = 0;
+      for (; _0x1A291 < _0x1A47F.length; _0x1A291++) {
+        _0x1A388.moveTo(_0x1A47F[_0x1A291].x, _0x1A47F[_0x1A291].y);
+        _0x1A388.lineTo(_0x1A420, _0x1A39B);
+      }
+      ;
+      _0x1A388.stroke();
+      _0x1A388.restore();
+    }
+    ;
+    _0x1A388.restore();
+    if (":teams" == _0x1A459) {
+      if (_0x1A26B) {
+        if (_0x1A26B.width) {
+          _0x1A388.drawImage(_0x1A26B, _0x19DAB - _0x1A26B.width - 10, 10);
+        }
+      }
+    }
+    ;
+    _0x19FF8 = Math.max(_0x19FF8, _0x1A79D());
+    _0x1A978 = Date.now() - _0x1A978;
+    if (_0x1A978 > 16.666666666666668) {
+      _0x1A27E -= 0.01;
+    } else {
+      if (15.384615384615385 > _0x1A978) {
+        _0x1A27E += 0.01;
+      }
+    }
+    ;
+    if (0.4 > _0x1A27E) {
+      _0x1A27E = 0.4;
+    }
+    ;
+    if (_0x1A27E > 1) {
+      _0x1A27E = 1;
+    }
+    ;
+    _0x1A978 = _0x1A492 - _0x19F01;
+    if (!(null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN) || (_0x1A115 || _0x1A329)) {
+      _0x1A102 += _0x1A978 / 2e3;
+      if (_0x1A102 > 1) {
+        _0x1A102 = 1;
+      }
+    } else {
+      _0x1A102 -= _0x1A978 / 300;
+      if (0 > _0x1A102) {
+        _0x1A102 = 0;
+      }
+    }
+    ;
+    _0x19F01 = _0x1A492;
+  }
+  function _0x1A78A() {
+    if (myApp.isEnableGridline) {
+      _0x1A388.save();
+      _0x1A388.strokeStyle = _0x1A7FC ? "#AAAAAA" : "#FFFFFF";
+      _0x1A388.globalAlpha = 0 * _0x19F99;
+      _0x1A388.beginPath();
+      var _0x1A4A5 = _0x19DAB / _0x19F99;
+      var _0x1A4B8 = _0x19E30 / _0x19F99;
+      var _0x1AF68 = (-_0x19E69 + _0x1A4A5 / 2) % 50;
+      for (; _0x1A4A5 > _0x1AF68; _0x1AF68 += 50) {
+        _0x1A388.moveTo(_0x1AF68 * _0x19F99 - 0.5, 0);
+        _0x1A388.lineTo(_0x1AF68 * _0x19F99 - 0.5, _0x1A4B8 * _0x19F99);
+      }
+      ;
+      _0x1AF68 = (-_0x19E7C + _0x1A4B8 / 2) % 50;
+      for (; _0x1A4B8 > _0x1AF68; _0x1AF68 += 50) {
+        _0x1A388.moveTo(0, _0x1AF68 * _0x19F99 - 0.5);
+        _0x1A388.lineTo(_0x1A4A5 * _0x19F99, _0x1AF68 * _0x19F99 - 0.5);
+      }
+      ;
+      _0x1A388.stroke();
+      _0x1A388.restore();
+    }
+  }
+  function _0x1A79D() {
+    var _0x1A7B0 = 0;
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < _0x1A47F.length; _0x1A3AE++) {
+      _0x1A7B0 += _0x1A47F[_0x1A3AE].m * _0x1A47F[_0x1A3AE].m;
+    }
+    ;
+    return _0x1A7B0;
+  }
+  function _0x1A7C3() {
+    if (_0x1A26B = null, (null != _0x1A057 || 0 != _0x19EC8.length) && (null != _0x1A057 || _0x19FBF)) {
+      _0x1A26B = document.createElement("canvas");
+      var _0x1AAE1 = _0x1A26B.getContext("2d");
+      var _0x1A3AE = 60;
+      _0x1A3AE = null == _0x1A057 ? _0x1A3AE + 24 * _0x19EC8.length : _0x1A3AE + 180;
+      var _0x1ABFE = Math.min(200, 0.3 * _0x19DAB) / 200;
+      if (_0x1A26B.width = 200 * _0x1ABFE, _0x1A26B.height = _0x1A3AE * _0x1ABFE, _0x1AAE1.scale(_0x1ABFE, _0x1ABFE), _0x1AAE1.globalAlpha = 0.4, _0x1AAE1.fillStyle = "#111111", _0x1AAE1.fillRect(0, 0, 200, _0x1A3AE), _0x1AAE1.globalAlpha = 1, _0x1AAE1.fillStyle = "#111111", _0x1ABFE = _0x1A4CB.i18n.Leaderboard || (_0x1A4CB.i18n_dict.en.Leaderboard || "Leaderboard"), _0x1AAE1.font = "30px Ubuntu", _0x1AAE1.fillText(_0x1ABFE, 100 - _0x1AAE1.measureText(_0x1ABFE).width / 2, 40), null == _0x1A057) {
+        _0x1AAE1.font = "20px Ubuntu";
+        _0x1A3AE = 0;
+        for (; _0x1A3AE < _0x19EC8.length; ++_0x1A3AE) {
+          _0x1ABFE = _0x19EC8[_0x1A3AE].name || (_0x1A4CB.i18n.unnamed_cell || (_0x1A4CB.i18n_dict.en.unnamed_cell || "unnamed_cell"));
+          if (!_0x19FBF) {
+            _0x1ABFE = _0x1A4CB.i18n.unnamed_cell || (_0x1A4CB.i18n_dict.en.unnamed_cell || "unnamed_cell");
+          }
+          ;
+          if (-1 != _0x1A7B0.indexOf(_0x19EC8[_0x1A3AE].id)) {
+            if (_0x1A47F[0].name) {
+              _0x1ABFE = _0x1A47F[0].name;
+            }
+            ;
+            _0x1AAE1.fillStyle = "#FFAAAA";
+          } else {
+            _0x1AAE1.fillStyle = "#FFFFFF";
+          }
+          ;
+          _0x1ABFE = _0x1A3AE + 1 + ". " + _0x1ABFE;
+          _0x1AAE1.fillText(_0x1ABFE, 100 - _0x1AAE1.measureText(_0x1ABFE).width / 2, 70 + 24 * _0x1A3AE);
+        }
+      } else {
+        _0x1A3AE = _0x1ABFE = 0;
+        for (; _0x1A3AE < _0x1A057.length; ++_0x1A3AE) {
+          var _0x1AF7B = _0x1ABFE + _0x1A057[_0x1A3AE] * Math.PI * 2;
+          _0x1AAE1.fillStyle = _0x1A0A3[_0x1A3AE + 1];
+          _0x1AAE1.beginPath();
+          _0x1AAE1.moveTo(100, 140);
+          _0x1AAE1.arc(100, 140, 80, _0x1ABFE, _0x1AF7B, false);
+          _0x1AAE1.fill();
+          _0x1ABFE = _0x1AF7B;
+        }
+      }
+    }
+  }
+  function _0x1A7D6(_0x1AF8E, _0x1A4A5, _0x1A4B8, _0x1AFA1, _0x1A3FA) {
+    this.P = _0x1AF8E;
+    this.x = _0x1A4A5;
+    this.y = _0x1A4B8;
+    this.g = _0x1AFA1;
+    this.b = _0x1A3FA;
+  }
+  function _0x1A7E9(_0x1A362, _0x1A4A5, _0x1A4B8, _0x1AACE, _0x1A7FC, _0x1AFB4) {
+    this.id = _0x1A362;
+    this.o = this.x = _0x1A4A5;
+    this.p = this.y = _0x1A4B8;
+    this.n = this.size = _0x1AACE;
+    this.color = _0x1A7FC;
+    this.a = [];
+    this.Q();
+    this.t(_0x1AFB4);
+  }
+  function _0x1A80F(_0x1A822) {
+    _0x1A822 = _0x1A822.toString(16);
+    for (; 6 > _0x1A822.length;) {
+      _0x1A822 = "0" + _0x1A822;
+    }
+    ;
+    return "#" + _0x1A822;
+  }
+  function _0x1A835(_0x1AFC7, _0x1AFDA, _0x1A4DE, _0x1ABC5) {
+    if (_0x1AFC7) {
+      this.q = _0x1AFC7;
+    }
+    ;
+    if (_0x1AFDA) {
+      this.M = _0x1AFDA;
+    }
+    ;
+    this.O = !!_0x1A4DE;
+    if (_0x1ABC5) {
+      this.r = _0x1ABC5;
+    }
+  }
+  function _0x1A848(_0x1A6DF) {
+    var _0x1AFED;
+    var _0x1B000;
+    var _0x1B013 = _0x1A6DF.length;
+    for (; _0x1B013 > 0;) {
+      _0x1B000 = Math.floor(Math.random() * _0x1B013);
+      _0x1B013--;
+      _0x1AFED = _0x1A6DF[_0x1B013];
+      _0x1A6DF[_0x1B013] = _0x1A6DF[_0x1B000];
+      _0x1A6DF[_0x1B000] = _0x1AFED;
+    }
+  }
+  function _0x19D00(_0x1A47F, _0x1AC24) {
+    console.log(_0x1A47F);
+    console.log("b: " + _0x1AC24);
+    var _0x1AC37 = "1" == _0x1A517("#helloContainer").attr("data-has-account-data");
+    if (_0x1A517("#helloContainer").attr("data-has-account-data", "1"), null == _0x1AC24 && _0x1A4CB.localStorage[_0x1A3AE]) {
+      var _0x1A3E7 = JSON.parse(_0x1A4CB.localStorage[_0x1A3AE]);
+      _0x1A3E7.xp = _0x1A47F.e;
+      _0x1A3E7.xpNeeded = _0x1A47F.c;
+      _0x1A3E7.level = _0x1A47F.d;
+      _0x1A4CB.localStorage[_0x1A3AE] = JSON.stringify(_0x1A3E7);
+    }
+  }
+  function _0x19D13(_0x1AC4A) {
+    if ("connected" == _0x1AC4A.status) {
+      window.userToken = _0x1AC4A.authResponse.accessToken;
+      _0x1A72B();
+      _0x1A4CB.FB.api("/me/picture?width=180&height=180", function (_0x1AC5D) {
+        _0x1A4CB.localStorage.fbPictureCache = _0x1AC5D.data.url;
+        _0x1A517(".alisio-profile-picture").attr("src", _0x1AC5D.data.url);
+      });
+      _0x1A517("#helloContainer").attr("data-logged-in", "1");
+    }
+  }
+  function _0x19D26(_0x1AA10, _0x1AAE1) {
+    _0x1AAE1.save();
+    _0x1AAE1.beginPath();
+    _0x1AAE1.strokeStyle = "#c3c3c3";
+    var _0x1AC70 = _0x1AAE1.lineWidth = 40;
+    _0x1AAE1.strokeRect(_0x1AA10[0] - _0x1AC70 / 2, _0x1AA10[1] - _0x1AC70 / 2, _0x1AA10[2] - _0x1AA10[0] + _0x1AC70, _0x1AA10[3] - _0x1AA10[1] + _0x1AC70);
+    _0x1AAE1.restore();
+  }
+  function _0x19D39(_0x1A446, _0x1AAE1) {
+    var _0x1A4A5 = Math.round(_0x1A446[0]) + 40;
+    var _0x1A4B8 = Math.round(_0x1A446[1]) + 40;
+    var _0x1AC83 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    var _0x1AC96 = (Math.round(_0x1A446[2]) - 40 - _0x1A4A5) / 5;
+    var _0x1ACBC = (Math.round(_0x1A446[3]) - 40 - _0x1A4B8) / 5;
+    _0x1AAE1.save();
+    _0x1AAE1.beginPath();
+    _0x1AAE1.lineWidth = 20;
+    _0x1AAE1.textAlign = "center";
+    _0x1AAE1.textBaseline = "middle";
+    _0x1AAE1.font = 0.6 * _0x1AC96 + "px Ubuntu";
+    _0x1AAE1.fillStyle = "#1A1A1A";
+    var _0x1ACA9 = 0;
+    for (; 5 > _0x1ACA9; _0x1ACA9++) {
+      var _0x1A3AE = 0;
+      for (; 5 > _0x1A3AE; _0x1A3AE++) {
+        _0x1AAE1.fillText(_0x1AC83[_0x1ACA9] + (_0x1A3AE + 1), _0x1A4A5 + _0x1AC96 * _0x1A3AE + _0x1AC96 / 2, _0x1A4B8 + _0x1ACBC * _0x1ACA9 + _0x1ACBC / 2);
+      }
+    }
+    ;
+    _0x1AAE1.lineWidth = 100;
+    _0x1AAE1.strokeStyle = "#1A1A1A";
+    _0x1ACA9 = 0;
+    for (; 5 > _0x1ACA9; _0x1ACA9++) {
+      _0x1A3AE = 0;
+      for (; 5 > _0x1A3AE; _0x1A3AE++) {
+        _0x1AAE1.strokeRect(_0x1A4A5 + _0x1AC96 * _0x1A3AE, _0x1A4B8 + _0x1ACBC * _0x1ACA9, _0x1AC96, _0x1ACBC);
+      }
+    }
+    ;
+    _0x1AAE1.stroke();
+    _0x1AAE1.restore();
+  }
+  function _0x19D4C(_0x1ACCF) {
+    _0x1A5C2(":party");
+    _0x1A517("#helloContainer").attr("data-party-state", "4");
+    _0x1ACCF = decodeURIComponent(_0x1ACCF).replace(/.*#/gim, "");
+    _0x1A433("#" + _0x1A4CB.encodeURIComponent(_0x1ACCF));
+    $(".btn-spectate").prop("disabled", false);
+  }
+  function _0x1A433(_0x1AD1B) {
+    if (_0x1A4CB.history) {
+      if (_0x1A4CB.history.replaceState) {
+        _0x1A4CB.history.replaceState({}, _0x1A4CB.document.title, _0x1AD1B);
+      }
+    }
+  }
+  function _0x19D5F(_0x1A420, _0x1A47F) {
+    var _0x1ACE2 = -1 != _0x1A7B0.indexOf(_0x1A420.id);
+    var _0x1A39B = -1 != _0x1A7B0.indexOf(_0x1A47F.id);
+    var _0x1A3AE = 30 > _0x1A47F.size;
+    if (_0x1ACE2) {
+      if (_0x1A3AE) {
+        ++_0x1A316;
+      }
+    }
+    ;
+    if (!_0x1A3AE) {
+      if (_0x1ACE2) {
+        if (!_0x1A39B) {
+          ++_0x1A34F;
+        }
+      }
+    }
+  }
+  function _0x19D72(_0x1A3AE) {
+    _0x1A3AE = ~~_0x1A3AE;
+    var _0x1ACF5 = (_0x1A3AE % 60).toString();
+    return _0x1A3AE = (~~(_0x1A3AE / 60)).toString(), 2 > _0x1ACF5.length && (_0x1ACF5 = "0" + _0x1ACF5), _0x1A3AE + ":" + _0x1ACF5;
+  }
+  function _0x19D85() {
+    if (null == _0x19EC8) {
+      return 0;
+    }
+    ;
+    var _0x1A3AE = 0;
+    for (; _0x1A3AE < _0x19EC8.length; ++_0x1A3AE) {
+      if (-1 != _0x1A7B0.indexOf(_0x19EC8[_0x1A3AE].id)) {
+        return _0x1A3AE + 1;
+      }
+    }
+    ;
+    return 0;
+  }
+  function _0x19D98() {
+    _0x1A517(".stats-food-eaten").text(_0x1A316);
+    _0x1A517(".stats-time-alive").text(_0x19D72((_0x19DBE - _0x19DD1) / 1e3));
+    _0x1A517(".stats-leaderboard-time").text(_0x19D72(_0x1A4DE));
+    _0x1A517(".stats-highest-mass").text(~~(_0x19FF8 / 100));
+    _0x1A517(".stats-cells-eaten").text(_0x1A34F);
+    _0x1A517(".stats-top-position").text(0 == _0x1A822 ? ":(" : _0x1A822);
+    var _0x1ACBC = document.getElementById("statsGraph");
+    if (_0x1ACBC) {
+      var _0x1AAE1 = _0x1ACBC.getContext("2d");
+      var _0x19DAB = _0x1ACBC.width;
+      if (_0x1ACBC = _0x1ACBC.height, _0x1AAE1.clearRect(0, 0, _0x19DAB, _0x1ACBC), 2 < _0x1A3E7.length) {
+        var _0x1A39B = 200;
+        var _0x1A3AE = 0;
+        for (; _0x1A3AE < _0x1A3E7.length; _0x1A3AE++) {
+          _0x1A39B = Math.max(_0x1A3E7[_0x1A3AE], _0x1A39B);
+        }
+        ;
+        _0x1AAE1.lineWidth = 3;
+        _0x1AAE1.lineCap = "round";
+        _0x1AAE1.lineJoin = "round";
+        _0x1AAE1.strokeStyle = _0x1A504;
+        _0x1AAE1.fillStyle = _0x1A504;
+        _0x1AAE1.beginPath();
+        _0x1AAE1.moveTo(0, _0x1ACBC - _0x1A3E7[0] / _0x1A39B * (_0x1ACBC - 10) + 10);
+        _0x1A3AE = 1;
+        for (; _0x1A3AE < _0x1A3E7.length; _0x1A3AE += Math.max(~~(_0x1A3E7.length / _0x19DAB), 1)) {
+          var _0x1A4A5 = _0x1A3AE / (_0x1A3E7.length - 1) * _0x19DAB;
+          var _0x1A9FD = [];
+          var _0x1AD08 = -20;
+          for (; 20 >= _0x1AD08; ++_0x1AD08) {
+            if (!(0 > _0x1A3AE + _0x1AD08)) {
+              if (!(_0x1A3AE + _0x1AD08 >= _0x1A3E7.length)) {
+                _0x1A9FD.push(_0x1A3E7[_0x1A3AE + _0x1AD08]);
+              }
+            }
+          }
+          ;
+          _0x1A9FD = _0x1A9FD.reduce(function (_0x19DBE, _0x19DD1) {
+            return _0x19DBE + _0x19DD1;
+          }) / _0x1A9FD.length / _0x1A39B;
+          _0x1AAE1.lineTo(_0x1A4A5, _0x1ACBC - _0x1A9FD * (_0x1ACBC - 10) + 10);
+        }
+        ;
+        _0x1AAE1.stroke();
+        _0x1AAE1.globalAlpha = 0.5;
+        _0x1AAE1.lineTo(_0x19DAB, _0x1ACBC);
+        _0x1AAE1.lineTo(0, _0x1ACBC);
+        _0x1AAE1.fill();
+        _0x1AAE1.globalAlpha = 1;
+      }
+    }
+  }
+  var _0x19DE4 = {context: function () {
+    return l1lI11;
+  }, playerCellIds: function () {
+    return l1lI1I;
+  }, playerCells: function () {
+    return _0x1A47F;
+  }, cellsById: function () {
+    return l1lIIl;
+  }, cells: function () {
+    return l1lII1;
+  }};
+  if (socket.on("playerUpdated", function (_0x1A85B) {
+    if ("join" == _0x1A85B.action || "spectate" == _0x1A85B.action) {
+      if (0 < _0x19DE4.playerCells().length) {
+        conn.emit("playerUpdated", _0x1A550("update"));
+      }
+    }
+    ;
+    if (_0x1A85B.identifier) {
+      l1IIl[_0x1A85B.identifier] = _0x1A85B;
+      l1II1[_0x1A85B.nick] = _0x1A85B;
+    }
+  }), _0x1A4CB.moveTo = function (_0x1A86E, _0x1A881) {
+    if (_0x1A86E) {
+      if (_0x1A881) {
+        myApp.isStopMovement = true;
+      }
+    }
+  }, _0x1A4CB.setPosition = function (_0x1A85B, _0x1A459) {
+    if (null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN) {
+      var _0x1A894 = _0x1A621(13);
+      _0x1A894.setUint8(0, 16);
+      _0x1A894.setInt32(1, _0x1A85B, true);
+      _0x1A894.setInt32(5, _0x1A459, true);
+      _0x1A894.setUint32(9, 0, true);
+      _0x1A634(_0x1A894);
+    }
+  }, window.handleQuickW = function () {
+    if (myApp.autoW) {
+      var _0x1A894 = _0x1A621(1);
+      _0x1A894.setUint8(0, 21);
+      _0x1A634(_0x1A894);
+      setTimeout(handleQuickW, 142);
+    }
+  }, !_0x1A4CB.alisioNoInit) {
+    var _0x19DF7 = "https:" == _0x1A4CB.location.protocol;
+    if (_0x19DF7 && -1 == _0x1A4CB.location.search.indexOf("fb")) {
+      _0x1A4CB.location.href = "http://agartuto.cf";
+    } else {
+      var _0x19E0A;
+      var _0x1A388;
+      var _0x19E1D;
+      var _0x19DAB;
+      var _0x19E30;
+      var _0x19E43 = null;
+      var _0x19E56 = null;
+      var _0x19E69 = 0;
+      var _0x19E7C = 0;
+      var _0x1A7B0 = [];
+      var _0x1A47F = [];
+      var _0x19E8F = {};
+      var _0x19EA2 = [];
+      var _0x19EB5 = [];
+      var _0x19EC8 = [];
+      var _0x1A4A5 = 0;
+      var _0x1A4B8 = 0;
+      var _0x19EDB = -1;
+      var _0x1A446 = -1;
+      var _0x19EEE = 0;
+      var _0x1A492 = 0;
+      var _0x19F01 = 0;
+      var _0x1A3FA = null;
+      var _0x19F14 = -7071.067811865476;
+      var _0x19F27 = -7071.06781186547;
+      var _0x1A4F1 = 7071.067811865476;
+      var _0x19F3A = 7071.067811865476;
+      var _0x19F4D = 0;
+      var _0x19F60 = 0;
+      var _0x19F73 = 0;
+      var _0x19F86 = 0;
+      var _0x19F99 = 1;
+      var _0x1A362 = null;
+      var _0x19FAC = true;
+      var _0x19FBF = true;
+      var _0x19FD2 = false;
+      var _0x19FE5 = false;
+      var _0x19FF8 = 0;
+      var _0x1A7FC = 1;
+      var _0x1A00B = false;
+      var _0x1A01E = _0x19E69 = ~~((_0x19F14 + _0x1A4F1) / 2);
+      var _0x1A031 = _0x19E7C = ~~((_0x19F27 + _0x19F3A) / 2);
+      var _0x1A044 = 1;
+      var _0x1A459 = "";
+      var _0x1A057 = null;
+      var _0x1A06A = false;
+      var _0x1A07D = false;
+      var _0x1A40D = 0;
+      var _0x1A693 = 0;
+      var _0x1A420 = 0;
+      var _0x1A39B = 0;
+      var _0x1A090 = 0;
+      var _0x1A0A3 = ["#333333", "#FF3333", "#33FF33", "#3333FF"];
+      var _0x1A0B6 = false;
+      var _0x1A0C9 = false;
+      var _0x1A0DC = 0;
+      var _0x1A0EF = 1;
+      var _0x1A102 = 1;
+      var _0x1A115 = false;
+      var _0x1A128 = 0;
+      var _0x1A13B = {};
+      var _0x1A291 = "";
+      var _0x1A14E = 0;
+      var _0x1A6DF = [];
+      var _0x1A161 = 2 * Math.PI;
+      var _0x1A174 = 0;
+      var _0x1A187 = 0;
+      var _0x1A19A = 0;
+      var _0x1A1AD = 0;
+      var _0x1A3C1 = 0;
+      var _0x1A1C0 = [];
+      var _0x1A1D3 = [{type: 1, color: "#d3d3d3"}, {type: 2, color: "#76FF03"}, {type: 4, color: "#2196F3"}, {type: -1, color: "#FF9800"}, {type: -2, color: "#FD0000"}, {type: -4, color: "white"}];
+      setInterval(function () {
+        _0x1A1AD = _0x1A187;
+        _0x1A187 = 0;
+        _0x1A3C1 = _0x1A19A;
+        _0x1A19A = 0;
+      }, 1e3);
+      (function () {
+        var _0x1A8A7 = _0x1A4CB.location.search;
+        if ("?" == _0x1A8A7.charAt(0)) {
+          _0x1A8A7 = _0x1A8A7.slice(1);
+        }
+        ;
+        _0x1A8A7 = _0x1A8A7.split("&");
+        var _0x1A3AE = 0;
+        for (; _0x1A3AE < _0x1A8A7.length; _0x1A3AE++) {
+          var _0x1A8BA = _0x1A8A7[_0x1A3AE].split("=");
+          _0x1A13B[_0x1A8BA[0]] = _0x1A8BA[1];
+        }
+      }());
+      var _0x1A1E6 = document.createElement("canvas");
+      if ("undefined" == typeof console || ("undefined" == typeof DataView || ("undefined" == typeof WebSocket || (null == _0x1A1E6 || (null == _0x1A1E6.getContext || null == _0x1A4CB.localStorage))))) {
+        alert("You browser does not support this game, we recommend you to use Firefox to play this");
+      } else {
+        var _0x1A1F9 = null;
+        _0x1A4CB.setNick = function (_0x1A8CD) {
+          if (_0x1A4CB.ga) {
+            _0x1A4CB.ga("send", "event", "Nick", _0x1A8CD.toLowerCase());
+          }
+          ;
+          _0x1A589();
+          _0x1A3FA = _0x1A8CD;
+          _0x1A6F2();
+          _0x19FF8 = 0;
+          setLocalStorage("nick", _0x1A8CD);
+          myApp.newGame();
+          l1III = false;
+          _0x1A563();
+        };
+        _0x1A4CB.setRegion = _0x1A59C;
+        _0x1A4CB.setSkins = function (_0x1A8E0) {
+          _0x19FAC = _0x1A8E0;
+        };
+        _0x1A4CB.setNames = function (_0x1A8F3) {
+          _0x19FBF = _0x1A8F3;
+        };
+        _0x1A4CB.setDarkTheme = function (_0x1A906) {
+          _0x1A7FC = _0x1A906;
+        };
+        _0x1A4CB.setColors = function (_0x1A47F) {
+          _0x19FD2 = _0x1A47F;
+        };
+        _0x1A4CB.setShowMass = function (_0x1A919) {
+          _0x1A00B = _0x1A919;
+        };
+        _0x1A4CB.connectIP = function (_0x1A693) {
+          var _0x1A92C = _0x1A693.trim();
+          _0x1A517("#opt_connect_ip").val(_0x1A92C);
+          if (_0x1A92C || ":party" != _0x1A517("#gamemode option:selected").val()) {
+            if (0 != _0x1A92C.length && 6 >= _0x1A92C.length) {
+              _0x19D4C(_0x1A693);
+            } else {
+              console.log("connecting IP  =  " + _0x1A693);
+              _0x1A291 = _0x1A693;
+              _0x1A5FB();
+            }
+          } else {
+            createParty();
+          }
+        };
+        _0x1A4CB.getCurrentX = function () {
+          return _0x1A47F.length ? _0x19E69 - (_0x1A4F1 - 7071.067811865476) : "";
+        };
+        _0x1A4CB.getCurrentY = function () {
+          return _0x1A47F.length ? _0x19E7C - (_0x19F3A - 7071.067811865476) : "";
+        };
+        _0x1A4CB.getTop1X = function () {
+          return _0x1A01E;
+        };
+        _0x1A4CB.getTop1Y = function () {
+          return _0x1A031;
+        };
+        _0x1A4CB.getLengthX = function () {
+          return 14142.135623730952;
+        };
+        _0x1A4CB.getLengthY = function () {
+          return 14142.135623730952;
+        };
+        _0x1A4CB.getLB = function () {
+          return _0x19EC8;
+        };
+        _0x1A4CB.getSelfIDs = function () {
+          return _0x1A7B0;
+        };
+        _0x1A4CB.getCell = function () {
+          return _0x1A47F;
+        };
+        _0x1A4CB.getHighestScore = function () {
+          return _0x19FF8;
+        };
+        _0x1A4CB.quickSpace = function () {
+          if (0 != _0x1A47F.length) {
+            _0x1A718(17);
+            setTimeout(function () {
+              _0x1A718(17);
+            }, 40);
+            setTimeout(function () {
+              _0x1A718(17);
+            }, 80);
+            setTimeout(function () {
+              _0x1A718(17);
+            }, 120);
+          }
+        };
+        _0x1A4CB.doubleSpace = function () {
+          setTimeout(function () {
+            _0x1A718(17);
+          }, 50);
+          setTimeout(function () {
+            _0x1A718(17);
+          }, 100);
+        };
+        _0x1A4CB.getFPS = function () {
+          return _0x1A14E;
+        };
+        _0x1A4CB.getPacketIO = function () {
+          return [_0x1A1AD, _0x1A3C1];
+        };
+        _0x1A4CB.spectate = function () {
+          lII = false;
+          l1ll = true;
+          _0x1A3FA = null;
+          _0x1A718(1);
+          _0x1A589();
+          myApp.spectate(_0x1A47F);
+          var _0x1A634 = _0x1A550("spectate");
+          conn.emit("playerEntered", _0x1A634);
+        };
+        _0x1A4CB.setGameMode = function (_0x1A93F) {
+          if (_0x1A93F != _0x1A459) {
+            if (":party" == _0x1A459) {
+              _0x1A517("#helloContainer").attr("data-party-state", "0");
+            }
+            ;
+            _0x1A5C2(_0x1A93F);
+            if (":party" != _0x1A93F) {
+              _0x1A5FB();
+            }
+          }
+        };
+        _0x1A4CB.setZoomLevel = function (_0x1A952) {
+          _0x1A0EF = _0x1A952;
+        };
+        _0x1A4CB.isFreeSpec = function () {
+          return myApp.isSpectating && 0.25 === _0x1A174;
+        };
+        _0x1A4CB.setAcid = function (_0x1A965) {
+          _0x1A0B6 = _0x1A965;
+        };
+        if (null != _0x1A4CB.localStorage) {
+          if (null == _0x1A4CB.localStorage.AB9) {
+            _0x1A4CB.localStorage.AB9 = 0 + ~~(100 * Math.random());
+          }
+          ;
+          _0x1A090 = +_0x1A4CB.localStorage.AB9;
+          _0x1A4CB.ABGroup = _0x1A090;
+        }
+        ;
+        var _0x1A20C = null;
+        _0x1A4CB.connect = _0x1A60E;
+        var _0x1A21F = 500;
+        var _0x1A232 = null;
+        var _0x1A3D4 = 0;
+        var _0x1A245 = -1;
+        var _0x1A258 = -1;
+        var _0x1A26B = null;
+        var _0x1A27E = 1;
+        var _0x1A2A4 = function () {
+          Date.now();
+          var _0x1A978 = 0;
+          var _0x19F01 = Date.now();
+          return function () {
+            _0x1A4CB.requestAnimationFrame(_0x1A2A4);
+            var _0x1A492 = Date.now();
+            if (myApp.isShowFPS) {
+              if (_0x1A978 > 1e3) {
+                _0x19F01 = _0x1A492;
+                _0x1A978 = 0;
+                _0x1A14E = _0x19EEE;
+                _0x19EEE = 0;
+              } else {
+                _0x1A978 = _0x1A492 - _0x19F01;
+              }
+            }
+            ;
+            if (!(null != _0x19E56 && _0x19E56.readyState == _0x19E56.OPEN) || 240 > Date.now() - _0x1A0DC) {
+              _0x1A777();
+            }
+            ;
+            _0x1A303();
+          };
+        }();
+        var _0x1A2B7 = {};
+        var _0x1A2CA = "poland;usa;china;russia;canada;australia;spain;brazil;germany;ukraine;france;sweden;chaplin;north korea;south korea;japan;united kingdom;earth;greece;latvia;lithuania;estonia;finland;norway;cia;maldivas;austria;nigeria;reddit;yaranaika;confederate;9gag;indiana;4chan;italy;bulgaria;tumblr;2ch.hk;hong kong;portugal;jamaica;german empire;mexico;sanik;switzerland;croatia;chile;indonesia;bangladesh;thailand;iran;iraq;peru;moon;botswana;bosnia;netherlands;european union;taiwan;pakistan;hungary;satanist;qing dynasty;matriarchy;patriarchy;feminism;ireland;texas;facepunch;prodota;cambodia;steam;piccolo;ea;india;kc;denmark;quebec;ayy lmao;sealand;bait;tsarist russia;origin;vinesauce;stalin;belgium;luxembourg;stussy;prussia;8ch;argentina;scotland;sir;romania;belarus;wojak;doge;nasa;byzantium;imperial japan;french kingdom;somalia;turkey;mars;pokerface;8;irs;receita federal;facebook;putin;merkel;tsipras;obama;kim jong-un;dilma;hollande;berlusconi;cameron;clinton;hillary;venezuela;blatter;chavez;cuba;fidel;merkel;palin;queen;boris;bush;trump".split(";");
+        var _0x1A2DD = "8;nasa;putin;merkel;tsipras;obama;kim jong-un;dilma;hollande;berlusconi;cameron;clinton;hillary;blatter;chavez;fidel;merkel;palin;queen;boris;bush;trump".split(";");
+        var _0x1A46C = {};
+        _0x1A7D6.prototype = {P: null, x: 0, y: 0, g: 0, b: 0};
+        _0x1A7E9.prototype = {id: 0, a: null, name: null, k: null, I: null, x: 0, y: 0, size: 0, o: 0, p: 0, n: 0, C: 0, D: 0, m: 0, T: 0, K: 0, W: 0, A: false, f: false, j: false, L: true, S: 0, V: null, R: function () {
+          var _0x1A3AE;
+          _0x1A3AE = 0;
+          for (; _0x1A3AE < _0x19EA2.length; _0x1A3AE++) {
+            if (_0x19EA2[_0x1A3AE] == this) {
+              _0x19EA2.splice(_0x1A3AE, 1);
+              break;
+            }
+          }
+          ;
+          delete _0x19E8F[this.id];
+          _0x1A3AE = _0x1A47F.indexOf(this);
+          if (-1 != _0x1A3AE) {
+            _0x19FE5 = true;
+            _0x1A47F.splice(_0x1A3AE, 1);
+          }
+          ;
+          _0x1A3AE = _0x1A7B0.indexOf(this.id);
+          if (-1 != _0x1A3AE) {
+            _0x1A7B0.splice(_0x1A3AE, 1);
+          }
+          ;
+          this.A = true;
+        }, i: function () {
+          return Math.max(~~(0.3 * this.size), 24);
+        }, t: function (_0x1A99E) {
+          var _0x1A98B = _0x1A99E.match(/\u0001([\u0002-\uffff]|[\u0002-\uffff]\uffff)$/g);
+          var _0x1A3E7 = 0;
+          if (_0x1A98B) {
+            _0x1A3E7 = _0x1A98B[0].split("")[1];
+            if (1 < _0x1A3E7.length) {
+              this.img = _0x1A3E7.charCodeAt(0) + 65534;
+            }
+          }
+          ;
+          if (this.name = _0x1A99E) {
+            if (null == this.k) {
+              this.k = new _0x1A835(this.i(), "#fff", true, "#000");
+              this.k.v = Math.ceil(10 * _0x19F99) / 10;
+            } else {
+              this.k.G(this.i());
+            }
+            ;
+            this.k.u(this.name);
+          }
+        }, Q: function () {
+          var _0x1A3E7 = this.B();
+          for (; this.a.length > _0x1A3E7;) {
+            var _0x1A47F = ~~(Math.random() * this.a.length);
+            this.a.splice(_0x1A47F, 1);
+          }
+          ;
+          if (0 == this.a.length) {
+            if (_0x1A3E7 > 0) {
+              this.a.push(new _0x1A7D6(this, this.x, this.y, this.size, Math.random() - 0.5));
+            }
+          }
+          ;
+          for (; this.a.length < _0x1A3E7;) {
+            _0x1A47F = ~~(Math.random() * this.a.length);
+            _0x1A47F = this.a[_0x1A47F];
+            this.a.push(new _0x1A7D6(this, _0x1A47F.x, _0x1A47F.y, _0x1A47F.g, _0x1A47F.b));
+          }
+        }, B: function () {
+          var _0x1A9B1 = 10;
+          if (20 > this.size) {
+            _0x1A9B1 = 0;
+          }
+          ;
+          if (this.f) {
+            _0x1A9B1 = 30;
+          }
+          ;
+          var _0x19E30 = this.size;
+          return this.f || (_0x19E30 *= _0x19F99), _0x19E30 *= _0x1A27E, 32 & this.T && (_0x19E30 *= 0.25), ~~Math.max(_0x19E30, _0x1A9B1);
+        }, da: function () {
+          this.Q();
+          var _0x1A9C4 = this.a;
+          var _0x1A39B = _0x1A9C4.length;
+          var _0x1A3AE = 0;
+          for (; _0x1A39B > _0x1A3AE; ++_0x1A3AE) {
+            var _0x1A3E7 = _0x1A9C4[(_0x1A3AE - 1 + _0x1A39B) % _0x1A39B].b;
+            var _0x1A3FA = _0x1A9C4[(_0x1A3AE + 1) % _0x1A39B].b;
+            _0x1A9C4[_0x1A3AE].b += (Math.random() - 0.5) * (this.j ? 3 : 1);
+            _0x1A9C4[_0x1A3AE].b *= 0.7;
+            if (10 < _0x1A9C4[_0x1A3AE].b) {
+              _0x1A9C4[_0x1A3AE].b = 10;
+            }
+            ;
+            if (-10 > _0x1A9C4[_0x1A3AE].b) {
+              _0x1A9C4[_0x1A3AE].b = -10;
+            }
+            ;
+            _0x1A9C4[_0x1A3AE].b = (_0x1A3E7 + _0x1A3FA + 8 * _0x1A9C4[_0x1A3AE].b) / 10;
+          }
+          ;
+          var _0x1A9D7 = this;
+          var _0x1A9EA = this.f ? 0 : (this.id / 1e3 + _0x1A492 / 1e4) % (2 * Math.PI);
+          _0x1A3AE = 0;
+          for (; _0x1A39B > _0x1A3AE; ++_0x1A3AE) {
+            var _0x1AA10 = _0x1A9C4[_0x1A3AE].g;
+            if (_0x1A3E7 = _0x1A9C4[(_0x1A3AE - 1 + _0x1A39B) % _0x1A39B].g, _0x1A3FA = _0x1A9C4[(_0x1A3AE + 1) % _0x1A39B].g, 15 < this.size && (null != _0x19E43 && (20 < this.size * _0x19F99 && 0 < this.id))) {
+              var _0x1A9FD = false;
+              var _0x1A4A5 = _0x1A9C4[_0x1A3AE].x;
+              var _0x1A4B8 = _0x1A9C4[_0x1A3AE].y;
+              _0x19E43.ea(_0x1A4A5 - 5, _0x1A4B8 - 5, 10, 10, function (_0x1A420) {
+                if (_0x1A420.P != _0x1A9D7) {
+                  if (25 > (_0x1A4A5 - _0x1A420.x) * (_0x1A4A5 - _0x1A420.x) + (_0x1A4B8 - _0x1A420.y) * (_0x1A4B8 - _0x1A420.y)) {
+                    _0x1A9FD = true;
+                  }
+                }
+              });
+              if (!_0x1A9FD) {
+                if (_0x1A9C4[_0x1A3AE].x < _0x19F14 || (_0x1A9C4[_0x1A3AE].y < _0x19F27 || (_0x1A9C4[_0x1A3AE].x > _0x1A4F1 || _0x1A9C4[_0x1A3AE].y > _0x19F3A))) {
+                  _0x1A9FD = true;
+                }
+              }
+              ;
+              if (_0x1A9FD) {
+                if (0 < _0x1A9C4[_0x1A3AE].b) {
+                  _0x1A9C4[_0x1A3AE].b = 0;
+                }
+                ;
+                --_0x1A9C4[_0x1A3AE].b;
+              }
+            }
+            ;
+            _0x1AA10 += _0x1A9C4[_0x1A3AE].b;
+            if (0 > _0x1AA10) {
+              _0x1AA10 = 0;
+            }
+            ;
+            _0x1AA10 = this.j ? (19 * _0x1AA10 + this.size) / 20 : (12 * _0x1AA10 + this.size) / 13;
+            _0x1A9C4[_0x1A3AE].g = (_0x1A3E7 + _0x1A3FA + 8 * _0x1AA10) / 10;
+            _0x1A3E7 = 2 * Math.PI / _0x1A39B;
+            _0x1A3FA = this.a[_0x1A3AE].g;
+            if (this.f) {
+              if (0 == _0x1A3AE % 2) {
+                _0x1A3FA += 5;
+              }
+            }
+            ;
+            _0x1A9C4[_0x1A3AE].x = this.x + Math.cos(_0x1A3E7 * _0x1A3AE + _0x1A9EA) * _0x1A3FA;
+            _0x1A9C4[_0x1A3AE].y = this.y + Math.sin(_0x1A3E7 * _0x1A3AE + _0x1A9EA) * _0x1A3FA;
+          }
+        }, J: function () {
+          if (0 >= this.id) {
+            return 1;
+          }
+          ;
+          var _0x1A85B;
+          _0x1A85B = (_0x1A492 - this.K) / 120;
+          _0x1A85B = 0 > _0x1A85B ? 0 : _0x1A85B > 1 ? 1 : _0x1A85B;
+          var _0x1A39B = 0 > _0x1A85B ? 0 : _0x1A85B > 1 ? 1 : _0x1A85B;
+          if (this.i(), this.A && _0x1A39B >= 1) {
+            var _0x1A459 = _0x19EB5.indexOf(this);
+            if (-1 != _0x1A459) {
+              _0x19EB5.splice(_0x1A459, 1);
+            }
+          }
+          ;
+          return this.x = _0x1A85B * (this.C - this.o) + this.o, this.y = _0x1A85B * (this.D - this.p) + this.p, this.size = _0x1A39B * (this.m - this.n) + this.n, _0x1A39B;
+        }, H: function () {
+          return 0 >= this.id ? true : this.x + this.size + 40 < _0x19E69 - _0x19DAB / 2 / _0x19F99 || (this.y + this.size + 40 < _0x19E7C - _0x19E30 / 2 / _0x19F99 || (this.x - this.size - 40 > _0x19E69 + _0x19DAB / 2 / _0x19F99 || this.y - this.size - 40 > _0x19E7C + _0x19E30 / 2 / _0x19F99)) ? false : true;
+        }, s: function (_0x1AAE1) {
+          if (this.H()) {
+            var _0x1AA23 = myApp.isEnableSimpleDrawing;
+            if (15 > this.size) {
+              if (!myApp.isEnableHideFood) {
+                if (myApp.isSameColorFood) {
+                  _0x1A1C0.push({x: this.x, y: this.y, size: this.size});
+                } else {
+                  _0x1AAE1.beginPath();
+                  _0x1AAE1.fillStyle = this.color;
+                  _0x1AAE1.arc(this.x, this.y, this.size + 5, 0, 2 * Math.PI, false);
+                  _0x1AAE1.fill();
+                }
+              }
+            } else {
+              ++this.S;
+              var _0x1AA36 = 0 < this.id && (!this.f && (!this.j && 0.4 > _0x19F99));
+              if (5 > this.B() && (0 < this.id && (_0x1AA36 = true)), this.L && !_0x1AA36) {
+                var _0x1A3AE = 0;
+                for (; _0x1A3AE < this.a.length; _0x1A3AE++) {
+                  this.a[_0x1A3AE].g = this.size;
+                }
+              }
+              ;
+              this.L = _0x1AA36;
+              _0x1AAE1.save();
+              this.W = _0x1A492;
+              _0x1A3AE = this.J();
+              if (this.A) {
+                _0x1AAE1.globalAlpha *= 1 - _0x1A3AE;
+              }
+              ;
+              _0x1AAE1.lineWidth = 10;
+              _0x1AAE1.lineCap = "round";
+              _0x1AAE1.lineJoin = this.f ? "miter" : "round";
+              _0x1A3AE = !this.f && (0 < this.id && (15 <= this.size && !this.j)) ? true : false;
+              var _0x1A8CD;
+              var _0x1AA49 = false;
+              var _0x1A4A5 = null;
+              if (_0x1A8CD = this.name + this.color, _0x1A8CD = _0x1A8CD in l1IIl ? l1IIl[_0x1A8CD] : void 0, _0x1A3AE) {
+                if (myApp.isTransparentCell) {
+                  _0x1AAE1.globalAlpha = 0.8;
+                }
+                ;
+                var _0x1A291 = 0;
+                for (; _0x1A291 < _0x1A7B0.length; _0x1A291++) {
+                  if (this.id === _0x1A7B0[_0x1A291]) {
+                    _0x1AA49 = true;
+                  }
+                }
+                ;
+                if (_0x1AA49) {
+                  if (myApp.isEnableCursorLine) {
+                    _0x1AAE1.save();
+                    _0x1AAE1.strokeStyle = "#E3F2FD";
+                    _0x1AAE1.lineWidth = 2;
+                    _0x1AAE1.lineCap = "round";
+                    _0x1AAE1.lineJoin = "round";
+                    _0x1AAE1.globalAlpha = 0.8;
+                    _0x1AAE1.beginPath();
+                    _0x1AAE1.moveTo(this.x, this.y);
+                    _0x1AAE1.lineTo(_0x19EDB, _0x1A446);
+                    _0x1AAE1.stroke();
+                    _0x1AAE1.restore();
+                  }
+                  ;
+                  if (myApp.isEnableAttackRange) {
+                    _0x1AAE1.beginPath();
+                    _0x1AAE1.strokeStyle = _0x1A7FC ? "white" : "black";
+                    _0x1AAE1.arc(this.x, this.y, this.size + myApp.attackRangeRadius, 0, 2 * Math.PI, false);
+                    _0x1AAE1.stroke();
+                    _0x1AAE1.closePath();
+                  }
+                  ;
+                  if (myApp.isEnableCustomSkin) {
+                    _0x1A4A5 = myApp.getSkinImage(nodeList[0][5]);
+                  }
+                }
+              }
+              ;
+              if (_0x19FD2 ? (_0x1AAE1.fillStyle = "#ffffff", _0x1AAE1.strokeStyle = "#AAAAAA") : (_0x1AAE1.fillStyle = this.color, _0x1AAE1.strokeStyle = this.color), _0x1AA23 && (this.f && (_0x1AAE1.fillStyle = "#ffffff", _0x1AAE1.globalAlpha = 0.5, _0x1AAE1.lineWidth = 12, _0x1AAE1.strokeStyle = "#ff0000")), _0x1AA23 || _0x1AA36) {
+                _0x1AAE1.beginPath();
+                _0x1AAE1.arc(this.x, this.y, this.size + 5, 0, 2 * Math.PI, false);
+                if (myApp.isEnableSplitInd) {
+                  if (_0x1A3AE) {
+                    if (!_0x1AA49) {
+                      if (this.name || 38 < this.size) {
+                        _0x1A6DF.push({x: this.x, y: this.y, size: this.size});
+                      }
+                    }
+                  }
+                }
+              } else {
+                this.da();
+                _0x1AAE1.beginPath();
+                var _0x1A39B = this.B();
+                _0x1AAE1.moveTo(this.a[0].x, this.a[0].y);
+                _0x1A3AE = 1;
+                for (; _0x1A39B >= _0x1A3AE; ++_0x1A3AE) {
+                  _0x1A291 = _0x1A3AE % _0x1A39B;
+                  _0x1AAE1.lineTo(this.a[_0x1A291].x, this.a[_0x1A291].y);
+                }
+              }
+              ;
+              if (_0x1AAE1.closePath(), _0x1A3AE = this.name.toLowerCase(), _0x1A291 = this.img ? "http://upload.happyfor.me/getimg.php?id=" + this.img + "&_t=" + Math.random() : "skins/" + _0x1A3AE + ".png", _0x1A4A5 || (this.j || (!_0x19FAC && !myApp.isEnableOtherSkinSupport || ":teams" == _0x1A459)) ? _0x1A39B = null : (_0x1A39B = this.V, null == _0x1A39B ? _0x1A39B = null : ":" == _0x1A39B[0] ? (_0x1A46C.hasOwnProperty(_0x1A39B) || (_0x1A46C[_0x1A39B] = new Image, _0x1A46C[_0x1A39B].src = _0x1A39B.slice(1)), _0x1A39B = 0 != _0x1A46C[_0x1A39B].width && _0x1A46C[_0x1A39B].complete ? _0x1A46C[_0x1A39B] : null) : _0x1A39B = null, _0x1A39B || (-1 != _0x1A2CA.indexOf(_0x1A3AE) && _0x19FAC || this.img ? ($.hasOwnProperty(_0x1A3AE) || ($[_0x1A3AE] = new Image, $[_0x1A3AE].src = _0x1A291), _0x1A39B = 0 != $[_0x1A3AE].width && $[_0x1A3AE].complete ? $[_0x1A3AE] : null) : _0x1A39B = null)), _0x1A291 = _0x1A39B, _0x1AA36 || _0x1AA23 && (this.f && _0x1AAE1.stroke()), _0x1AAE1.fill(), myApp.isEnableCustomSkin && (_0x1A39B = null, _0x1A4A5 = false, _0x1A8CD && (_0x1A4A5 = _0x1A8CD.url), _0x1A4A5 && (_0x1A2B7.hasOwnProperty(_0x1A4A5) || (_0x1A8CD = new Image, _0x1A8CD.src = _0x1A4A5, _0x1A2B7[_0x1A4A5] = _0x1A8CD), _0x1A2B7[_0x1A4A5].width && (_0x1A2B7[_0x1A4A5].complete && (_0x1A39B = _0x1A2B7[_0x1A4A5]))), _0x1A291 = _0x1A39B, null != _0x1A291)) {
+                var _0x1AACE = Math.min(_0x1A291.width, _0x1A291.height);
+                var _0x1AA5C = (_0x1A291.width - _0x1AACE) / 2;
+                var _0x1AA6F = (_0x1A291.height - _0x1AACE) / 2;
+                var _0x1A4B8 = this.size + 5;
+              }
+              ;
+              if (null != _0x1A291 && (_0x1AAE1.save(), _0x1AAE1.clip(), _0x1AAE1.drawImage(_0x1A291, _0x1AA5C, _0x1AA6F, _0x1AACE, _0x1AACE, this.x - _0x1A4B8, this.y - _0x1A4B8, 2 * _0x1A4B8, 2 * _0x1A4B8), _0x1AAE1.restore()), _0x1AA23 || ((_0x19FD2 || 15 < this.size) && (_0x1AA36 || (_0x1AAE1.strokeStyle = "#ffffff", _0x1AAE1.globalAlpha *= 0.1, _0x1AAE1.stroke())), _0x1AAE1.globalAlpha = 1), _0x1A39B = -1 != _0x1A47F.indexOf(this), _0x1AA36 = ~~this.y, _0x1AA23 = this.f || (315 < this.size || 18 < this.size * _0x19F99), !(_0x1AA49 && myApp.isHideSelfName || myApp.isAutoHideName && !_0x1AA23) && (0 != this.id && ((_0x19FBF || _0x1A39B) && (this.name && (this.k && (null == _0x1A291 || -1 == _0x1A2DD.indexOf(_0x1A3AE))))))) {
+                _0x1A291 = this.k;
+                _0x1A291.u(this.name);
+                _0x1A291.G(this.i() / 0.9);
+                _0x1A3AE = 0 >= this.id ? 1 : Math.ceil(10 * _0x19F99) / 10;
+                _0x1A291.U(_0x1A3AE);
+                _0x1A291 = _0x1A291.F();
+                var _0x1AA82 = ~~(_0x1A291.width / _0x1A3AE);
+                var _0x1AA95 = ~~(_0x1A291.height / _0x1A3AE);
+                _0x1AAE1.drawImage(_0x1A291, ~~this.x - ~~(_0x1AA82 / 2), _0x1AA36 - ~~(_0x1AA95 / 2), _0x1AA82, _0x1AA95);
+                _0x1AA36 += _0x1A291.height / 2 / _0x1A3AE + 4;
+              }
+              ;
+              if (!myApp.isAutoHideMass || _0x1AA23) {
+                if (myApp.isEnableShowAllMass) {
+                  if (0 < this.id) {
+                    if (_0x1A00B) {
+                      if (38 < this.size) {
+                        if (null == this.I) {
+                          this.I = new _0x1A835(this.i() / 2, "#ffffff", true, "#000000");
+                        }
+                        ;
+                        _0x1A39B = this.I;
+                        _0x1A39B.G(this.i() / 0.8);
+                        var _0x1AAA8 = this.size * this.size / 100;
+                        var _0x1AABB = _0x1AAA8;
+                        _0x1A39B.u(~~_0x1AABB);
+                        _0x1A3AE = Math.ceil(10 * _0x19F99) / 10;
+                        _0x1A39B.U(_0x1A3AE);
+                        _0x1A291 = _0x1A39B.F();
+                        _0x1AA82 = ~~(_0x1A291.width / _0x1A3AE);
+                        _0x1AA95 = ~~(_0x1A291.height / _0x1A3AE);
+                        _0x1AAE1.drawImage(_0x1A291, ~~this.x - ~~(_0x1AA82 / 2), _0x1AA36 - ~~(_0x1AA95 / 2.7), _0x1AA82, _0x1AA95);
+                      }
+                    }
+                  }
+                }
+              }
+              ;
+              _0x1AAE1.restore();
+            }
+          }
+        }};
+        _0x1A835.prototype = {w: "", M: "#ffffff", O: false, r: "#ffffff", q: 16, l: null, N: null, h: false, v: 1, G: function (_0x1A4A5) {
+          if (5 < Math.abs(_0x1A4A5 - this.q)) {
+            if (this.q != _0x1A4A5) {
+              this.q = _0x1A4A5;
+              this.h = true;
+            }
+          }
+        }, U: function (_0x1A8CD) {
+          if (this.v != _0x1A8CD) {
+            this.v = _0x1A8CD;
+            this.h = true;
+          }
+        }, setStrokeColor: function (_0x1A9FD) {
+          if (this.r != _0x1A9FD) {
+            this.r = _0x1A9FD;
+            this.h = true;
+          }
+        }, u: function (_0x1A39B) {
+          var _0x1AAF4;
+          if (!isNaN(_0x1A39B)) {
+            if (!isNaN(this.w)) {
+              if (0 != this.w) {
+                if (0 != _0x1A39B) {
+                  if (this.w != _0x1A39B) {
+                    if (0.012 > Math.abs((_0x1A39B - this.w) / this.w)) {
+                      _0x1AAF4 = this.w;
+                      this.w = _0x1A39B;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ;
+          if (_0x1A39B != this.w) {
+            this.w = _0x1A39B;
+            this.h = true;
+          }
+          ;
+          if (_0x1AAF4) {
+            this.w = _0x1AAF4;
+          }
+        }, F: function () {
+          if (null == this.l && (this.l = document.createElement("canvas"), this.N = this.l.getContext("2d")), this.h) {
+            this.h = false;
+            var _0x1AACE = this.l;
+            var _0x1A291 = this.N;
+            var _0x1AB07 = this.w;
+            var _0x1AB1A = this.v;
+            var _0x19F14 = this.q;
+            var _0x1AB2D = "bold " + _0x19F14 + "px Ubuntu";
+            _0x1A291.font = _0x1AB2D;
+            var _0x1A4F1 = ~~(0.2 * _0x19F14);
+            _0x1AACE.width = (_0x1A291.measureText(_0x1AB07).width + 6) * _0x1AB1A;
+            _0x1AACE.height = (_0x19F14 + _0x1A4F1) * _0x1AB1A;
+            _0x1A291.font = _0x1AB2D;
+            _0x1A291.scale(_0x1AB1A, _0x1AB1A);
+            _0x1A291.globalAlpha = 1;
+            _0x1A291.fillStyle = this.M;
+            if (myApp.isShowTextStrokeLine) {
+              _0x1A291.lineWidth = 5;
+              _0x1A291.strokeStyle = this.r;
+              if (this.O) {
+                _0x1A291.strokeText(_0x1AB07, 3, _0x19F14 - _0x1A4F1 / 2);
+              }
+            }
+            ;
+            _0x1A291.fillText(_0x1AB07, 3, _0x19F14 - _0x1A4F1 / 2);
+          }
+          ;
+          return this.l;
+        }};
+        if (!Date.now) {
+          Date.now = function () {
+            return (new Date).getTime();
+          };
+        }
+        ;
+        (function () {
+          var _0x1AB40 = ["ms", "moz", "webkit", "o"];
+          var _0x1A4A5 = 0;
+          for (; _0x1A4A5 < _0x1AB40.length && !_0x1A4CB.requestAnimationFrame; ++_0x1A4A5) {
+            _0x1A4CB.requestAnimationFrame = _0x1A4CB[_0x1AB40[_0x1A4A5] + "RequestAnimationFrame"];
+            _0x1A4CB.cancelAnimationFrame = _0x1A4CB[_0x1AB40[_0x1A4A5] + "CancelAnimationFrame"] || _0x1A4CB[_0x1AB40[_0x1A4A5] + "CancelRequestAnimationFrame"];
+          }
+          ;
+          if (!_0x1A4CB.requestAnimationFrame) {
+            _0x1A4CB.requestAnimationFrame = function (_0x1A433) {
+              return setTimeout(_0x1A433, 16.666666666666668);
+            };
+            _0x1A4CB.cancelAnimationFrame = function (_0x1AB53) {
+              clearTimeout(_0x1AB53);
+            };
+          }
+        }());
+        var _0x1A2F0 = function () {
+          var _0x1A4CB = new _0x1A7E9(0, 0, 0, 32, "#ED1C24", "");
+          var _0x19E1D = document.createElement("canvas");
+          _0x19E1D.width = 32;
+          _0x19E1D.height = 32;
+          var _0x1AB66 = _0x19E1D.getContext("2d");
+          return function () {
+            if (0 < _0x1A47F.length) {
+              _0x1A4CB.color = _0x1A47F[0].color;
+              _0x1A4CB.t(_0x1A47F[0].name);
+            }
+            ;
+            _0x1AB66.clearRect(0, 0, 32, 32);
+            _0x1AB66.save();
+            _0x1AB66.translate(16, 16);
+            _0x1AB66.scale(0.4, 0.4);
+            _0x1A4CB.s(_0x1AB66);
+            _0x1AB66.restore();
+          };
+        }();
+        _0x1A517(function () {
+          _0x1A2F0();
+        });
+        var _0x1A3AE = "loginCache3";
+        _0x1A517(function () {
+          if (+_0x1A4CB.localStorage.wannaLogin) {
+            if (_0x1A4CB.localStorage[_0x1A3AE]) {
+              var _0x1A47F = _0x1A4CB.localStorage[_0x1A3AE];
+              if ("string" == typeof _0x1A47F) {
+                _0x1A47F = JSON.parse(_0x1A47F);
+              }
+              ;
+              if (Date.now() + 18e5 > _0x1A47F.expires) {
+                _0x1A517("#helloContainer").attr("data-logged-in", "0");
+              } else {
+                _0x1A4CB.localStorage[_0x1A3AE] = JSON.stringify(_0x1A47F);
+                _0x1A517(".alisio-profile-name").text(_0x1A47F.name);
+                _0x1A72B();
+                _0x19D00({e: _0x1A47F.xp, c: _0x1A47F.xpNeeded, d: _0x1A47F.level});
+                _0x1A517("#helloContainer").attr("data-logged-in", "1");
+              }
+            }
+            ;
+            if (_0x1A4CB.localStorage.fbPictureCache) {
+              _0x1A517(".alisio-profile-picture").attr("src", _0x1A4CB.localStorage.fbPictureCache);
+            }
+          }
+        });
+        var _0x1A303 = function () {
+          function _0x1A777(_0x1ABFE, _0x1AB79, _0x1A99E, _0x1AACE, _0x1A47F) {
+            var _0x1AB66 = _0x1AB79.getContext("2d");
+            var _0x1ABEB = _0x1AB79.width;
+            _0x1AB79 = _0x1AB79.height;
+            _0x1ABFE.color = _0x1A47F;
+            _0x1ABFE.t(_0x1A99E);
+            _0x1ABFE.size = _0x1AACE;
+            _0x1AB66.save();
+            _0x1AB66.translate(_0x1ABEB / 2, _0x1AB79 / 2);
+            _0x1ABFE.s(_0x1AB66);
+            _0x1AB66.restore();
+          }
+          var _0x1A47F = new _0x1A7E9(-1, 0, 0, 32, "#5bc0de", "");
+          var _0x1AB8C = new _0x1A7E9(-1, 0, 0, 32, "#5bc0de", "");
+          var _0x1ABB2 = "#0791ff #5a07ff #ff07fe #ffa507 #ff0774 #077fff #3aff07 #ff07ed #07a8ff #ff076e #3fff07 #ff0734 #07ff20 #ff07a2 #ff8207 #07ff0e".split(" ");
+          var _0x1A1D3 = [];
+          var _0x1A3AE = 0;
+          for (; _0x1A3AE < _0x1ABB2.length; ++_0x1A3AE) {
+            var _0x1AB9F = _0x1A3AE / _0x1ABB2.length * 12;
+            var _0x1ABC5 = 30 * Math.sqrt(_0x1A3AE / _0x1ABB2.length);
+            _0x1A1D3.push(new _0x1A7E9(-1, Math.cos(_0x1AB9F) * _0x1ABC5, Math.sin(_0x1AB9F) * _0x1ABC5, 10, _0x1ABB2[_0x1A3AE], ""));
+          }
+          ;
+          _0x1A848(_0x1A1D3);
+          var _0x1AB79 = document.createElement("canvas");
+          return _0x1AB79.getContext("2d"), _0x1AB79.width = _0x1AB79.height = 70, _0x1A777(_0x1AB8C, _0x1AB79, "", 26, "#ebc0de"), function () {
+            _0x1A517(".cell-spinner").filter(":visible").each(function () {
+              var _0x1ABD8 = _0x1A517(this);
+              var _0x1A4A5 = Date.now();
+              var _0x19DAB = this.width;
+              var _0x19E30 = this.height;
+              var _0x1A388 = this.getContext("2d");
+              _0x1A388.clearRect(0, 0, _0x19DAB, _0x19E30);
+              _0x1A388.save();
+              _0x1A388.translate(_0x19DAB / 2, _0x19E30 / 2);
+              var _0x1A4B8 = 0;
+              for (; 10 > _0x1A4B8; ++_0x1A4B8) {
+                _0x1A388.drawImage(_0x1AB79, (0.1 * _0x1A4A5 + 80 * _0x1A4B8) % (_0x19DAB + 140) - _0x19DAB / 2 - 70 - 35, _0x19E30 / 2 * Math.sin((0.001 * _0x1A4A5 + _0x1A4B8) % Math.PI * 2) - 35, 70, 70);
+              }
+              ;
+              _0x1A388.restore();
+              if (_0x1ABD8 = _0x1ABD8.attr("data-itr")) {
+                _0x1ABD8 = _0x1A4CB.i18n[_0x1ABD8] || (_0x1A4CB.i18n_dict.en[_0x1ABD8] || _0x1ABD8);
+              }
+              ;
+              _0x1A777(_0x1A47F, this, _0x1ABD8 || "", +_0x1A517(this).attr("data-size"), "#5bc0de");
+            });
+            _0x1A517("#statsPellets").filter(":visible").each(function () {
+              _0x1A517(this);
+              var _0x1A3AE = this.width;
+              var _0x19E30 = this.height;
+              this.getContext("2d").clearRect(0, 0, _0x1A3AE, _0x19E30);
+              _0x1A3AE = 0;
+              for (; _0x1A3AE < _0x1A1D3.length; _0x1A3AE++) {
+                _0x1A777(_0x1A1D3[_0x1A3AE], this, "", _0x1A1D3[_0x1A3AE].size, _0x1A1D3[_0x1A3AE].color);
+              }
+            });
+          };
+        }();
+        _0x1A4CB.joinParty = _0x19D4C;
+        var _0x1A3E7 = [];
+        var _0x1A316 = 0;
+        var _0x1A504 = "#ffffff";
+        var _0x1A329 = false;
+        var _0x1A33C = false;
+        var _0x19DD1 = 0;
+        var _0x19DBE = 0;
+        var _0x1A4DE = 0;
+        var _0x1A34F = 0;
+        var _0x1A822 = 0;
+        var _0x1A375 = true;
+        setInterval(function () {
+          if (_0x1A33C) {
+            _0x1A3E7.push(_0x1A79D() / 100);
+          }
+        }, 16.666666666666668);
+        setInterval(function () {
+          var _0x1AC11 = _0x19D85();
+          if (0 != _0x1AC11) {
+            ++_0x1A4DE;
+            if (0 == _0x1A822) {
+              _0x1A822 = _0x1AC11;
+            }
+            ;
+            _0x1A822 = Math.min(_0x1A822, _0x1AC11);
+          }
+        }, 1e3);
+        _0x1A4CB.closeStats = function () {
+          _0x1A329 = false;
+          _0x1A517("#stats").hide();
+          _0x1A5AF(0);
+        };
+        _0x1A4CB.setSkipStats = function (_0x1A8E0) {
+          _0x1A375 = !_0x1A8E0;
+        };
+        _0x1A517(function () {
+          _0x1A517(_0x1A52A);
+        });
+      }
+    }
+  }
+}(window, window.jQuery), myApp.afterGameLogicLoaded(), $(document).keydown(function (_0x1AD54) {
+  if ("input" != _0x1AD54.target.tagName.toLowerCase() && "textarea" != _0x1AD54.target.tagName.toLowerCase() || 13 == _0x1AD54.keyCode) {
+    var _0x1B026 = "";
+    if (isValidHotKey(_0x1AD54) && (_0x1B026 = getPressedKey(_0x1AD54)), 18 == _0x1AD54.keyCode && _0x1AD54.preventDefault(), selectedHotkeyRow) {
+      if (46 == _0x1AD54.keyCode) {
+        _0x1AD54.preventDefault();
+        selectedHotkeyRow.find(".hotkey").text(_0x1B026);
+      } else {
+        if ("" != _0x1B026) {
+          _0x1AD54.preventDefault();
+          var _0x1ABB2 = $(".hotkey");
+          var _0x1A3AE = 0;
+          for (; _0x1A3AE < _0x1ABB2.length; _0x1A3AE++) {
+            if ($(_0x1ABB2[_0x1A3AE]).text() == _0x1B026) {
+              return;
+            }
+          }
+          ;
+          selectedHotkeyRow.find(".hotkey").text(_0x1B026);
+          selectedHotkeyRow.removeClass("table-row-selected");
+          selectedHotkeyRow = null;
+        }
+      }
+    }
+    ;
+    if ("" != _0x1B026) {
+      if (hotkeyMapping[_0x1B026]) {
+        _0x1AD54.preventDefault();
+        if (hotkeyConfig[hotkeyMapping[_0x1B026]]) {
+          if (hotkeyConfig[hotkeyMapping[_0x1B026]].keyDown) {
+            hotkeyConfig[hotkeyMapping[_0x1B026]].keyDown();
+          }
+        }
+      }
+    }
+  }
+}), $(document).keyup(function (_0x1AD54) {
+  if ("input" != _0x1AD54.target.tagName.toLowerCase() && "textarea" != _0x1AD54.target.tagName.toLowerCase() || 13 == _0x1AD54.keyCode) {
+    var _0x1B039 = "";
+    if (isValidHotKey(_0x1AD54)) {
+      _0x1B039 = getPressedKey(_0x1AD54);
+    }
+    ;
+    if ("" != _0x1B039) {
+      if (hotkeyMapping[_0x1B039]) {
+        _0x1AD54.preventDefault();
+        if (hotkeyConfig[hotkeyMapping[_0x1B039]]) {
+          if (hotkeyConfig[hotkeyMapping[_0x1B039]].keyUp) {
+            hotkeyConfig[hotkeyMapping[_0x1B039]].keyUp();
+          }
+        }
+      }
+    }
+  }
+}), $("#overlays2").mousedown(function (_0x1AD54) {
+  if (0 === _0x1AD54.button) {
+    if (myApp.isEnableMouseW) {
+      if ("input" != _0x1AD54.target.tagName.toLowerCase() || "textarea" != _0x1AD54.target.tagName.toLowerCase()) {
+        myApp.autoW = true;
+        handleQuickW();
+        _0x1AD54.preventDefault();
+      }
+    }
+  } else {
+    if (2 === _0x1AD54.button) {
+      $("#opt_chatbox").click();
+    }
+  }
+}), $("#overlays2").mouseup(function (_0x1AD54) {
+  if (0 === _0x1AD54.button) {
+    if (myApp.isEnableMouseW) {
+      if ("input" != _0x1AD54.target.tagName.toLowerCase()) {
+        if ("textarea" != _0x1AD54.target.tagName.toLowerCase()) {
+          myApp.autoW = false;
+          _0x1AD54.preventDefault();
+        }
+      }
+    }
+  }
+});
+var escapeHtml = function () {
+  var _0x1A894 = {'"': "&quot;", "&": "&amp;", "<": "&lt;", ">": "&gt;"};
+  return function (_0x1B04C) {
+    return _0x1B04C.replace(/[\"&<>]/g, function (_0x1B05F) {
+      return _0x1A894[_0x1B05F];
+    });
+  };
+}();
+var l11III;
+$(window).focus(function () {
+  l1I11 = true;
+  if (l11III) {
+    clearTimeout(l11III);
+  }
+}).blur(function () {
+  l1I11 = false;
+}), jQuery.cachedScript = function (_0x1ADB3, _0x1B072) {
+  return _0x1B072 = $.extend(_0x1B072 || {}, {dataType: "script", cache: true, url: _0x1ADB3}), jQuery.ajax(_0x1B072);
+}, drawMinimapNodes(), updateGameInfoDiv(), clearOldNodesData(), updateLbDiv(), updateScoreDiv(), $.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.8/js/min/perfect-scrollbar.jquery.min.js").done(function (_0x1B098, _0x1B085) {
+  chatRoom.createScrollBar();
+}), $.cachedScript("http://nbk.io/assets/js/jquery.toast.min.js").done(function (_0x1B098, _0x1B085) {
+  var _0x1B0AB;
+  for (; _0x1B0AB = toastQueue.shift();) {
+    chatRoom.popup(_0x1B0AB);
+  }
+});

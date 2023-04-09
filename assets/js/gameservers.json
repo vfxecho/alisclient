@@ -1,0 +1,59 @@
+{
+    "success": true,
+    "gameservers": {
+        "na-server": {
+            "FFA": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444"
+            },
+            "Instant": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444",
+                "4": "ws:\/\/localhost:444",
+                "5": "ws:\/\/localhost:444"
+            },
+            "Crazy": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444",
+                "4": "ws:\/\/localhost:444",
+                "5": "ws:\/\/localhost:444"
+            },
+             "Bots": {
+                "1": "ws:\/\/localhost:444",
+                "2": "ws:\/\/localhost:444",
+                "3": "ws:\/\/localhost:444"
+            }
+         
+        },
+        "eu-server": {
+            "FFA": {
+                "1": "ws:\/\/localhost:3001",
+                "2": "ws:\/\/localhost:3002",
+                "3": "ws:\/\/localhost:3003"
+            },
+            "Instant": {
+                "1": "ws:\/\/localhost:4001",
+                "2": "ws:\/\/localhost:4002",
+                "3": "ws:\/\/localhost:4003",
+                "4": "ws:\/\/localhost:4004",
+                "5": "ws:\/\/localhost:4005"
+            },
+            "Crazy": {
+                "1": "ws:\/\/localhost:5001",
+                "2": "ws:\/\/localhost:5002",
+                "3": "ws:\/\/localhost:5003",
+                "4": "ws:\/\/localhost:5004",
+                "5": "ws:\/\/localhost:5005"
+            },
+            "Bots": {
+                "1": "ws:\/\/localhost:6001",
+                "2": "ws:\/\/localhost:6002",
+                "3": "ws:\/\/localhost:6003"
+            }
+            
+        }
+    }
+}
